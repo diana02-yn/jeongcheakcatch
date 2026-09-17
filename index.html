@@ -262,8 +262,8 @@ body.dark .scholar-info{background:#141d33;color:#c6d2e6}
 <!-- 1단계: 필수 프로필 입력 -->
 <div class="wiz-step on" id="ws1">
 <div class="wrow"><label>1) 생년월일 <span class="req">필수</span></label>
-<input type="date" id="wiz-birth" min="1986-01-01" max="2016-12-31" style="width:100%;padding:12px;border:1.5px solid #d7dee8;border-radius:10px;font-size:15px" aria-label="생년월일">
-<p id="wiz-age-hint" style="font-size:12.5px;color:#647084;margin-top:6px">생년월일을 고르면 나이로 자동 계산돼요.</p>
+<input type="text" id="wiz-birth" inputmode="numeric" pattern="[0-9]*" maxlength="8" placeholder="예: 20010315 (8자리)" style="width:100%;padding:12px;border:1.5px solid #d7dee8;border-radius:10px;font-size:15px" aria-label="생년월일 8자리">
+<p id="wiz-age-hint" style="font-size:12.5px;color:#647084;margin-top:6px">8자리 숫자만 입력하면 나이로 자동 계산돼요.</p>
 </div>
 <div class="wrow"><label>2) 성별 <span class="req">필수</span></label>
 <div class="wchips" id="wiz-gender">
@@ -346,8 +346,8 @@ body.dark .scholar-info{background:#141d33;color:#c6d2e6}
 <div class="wiz-body">
 <div class="wiz-step on" id="qs1">
 <div class="wrow"><label>1) 생년월일 <span class="req">필수</span></label>
-<input type="date" id="q-birth" min="1986-01-01" max="2016-12-31" style="width:100%;padding:12px;border:1.5px solid #d7dee8;border-radius:10px;font-size:15px" aria-label="생년월일">
-<p style="font-size:12.5px;color:#647084;margin-top:6px">생년월일을 고르면 나이로 자동 계산돼요.</p>
+<input type="text" id="q-birth" inputmode="numeric" pattern="[0-9]*" maxlength="8" placeholder="예: 20010315 (8자리)" style="width:100%;padding:12px;border:1.5px solid #d7dee8;border-radius:10px;font-size:15px" aria-label="생년월일 8자리">
+<p style="font-size:12.5px;color:#647084;margin-top:6px">8자리 숫자만 입력하면 나이로 자동 계산돼요.</p>
 </div>
 <div class="wrow"><label>2) 성별 <span class="req">필수</span></label>
 <div class="wchips" id="q-gender">
@@ -711,7 +711,8 @@ window.wizGo=function(n){
  if(n===3){ti.innerHTML="캐치 완료! 🎉<br>지금 노려볼 혜택이에요";su.innerHTML="조건에 맞는 2~3개를 핵심 요약(금액·마감·서류)으로 보여드려요. 더 궁금한 건 아래 채팅에 편하게 물어보세요!";}
  wiz.querySelector(".wiz-card").scrollTop=0;
 };
-function birthLabel(v){if(!v||v.length<4)return "";var y=parseInt(v.slice(0,4),10);if(!y||y<1950||y>2016)return "";var now=new Date().getFullYear();var a=now-y+1;var dec=Math.floor(a/10)*10;var d=(dec>=10?dec+"대":a+"세");return y+"년생·"+d;}
+function birthDigits(v){return (v||"").replace(/[^0-9]/g,"").slice(0,8);}
+function birthLabel(v){v=birthDigits(v);if(v.length<8)return "";var y=parseInt(v.slice(0,4),10),m=parseInt(v.slice(4,6),10),d2=parseInt(v.slice(6,8),10);if(!y||y<1950||y>2016||m<1||m>12||d2<1||d2>31)return "";var now=new Date().getFullYear();var a=now-y+1;var dec=Math.floor(a/10)*10;var d=(dec>=10?dec+"대":a+"세");return y+"년생·"+d;}
 var age="",gender="",region="",job="",scholar="",incVal=null,incLabel="";
 function single(sel,cb){
  document.querySelectorAll(sel+" .wchip").forEach(function(c){
@@ -722,7 +723,7 @@ function single(sel,cb){
  });
 }
 document.getElementById("wiz-birth").addEventListener("change",function(e){age=birthLabel(e.target.value);var h=document.getElementById("wiz-age-hint");if(h&&age){h.textContent="✔ "+age+" 로 계산됐어요.";}check();});
-document.getElementById("wiz-birth").addEventListener("input",function(e){age=birthLabel(e.target.value);check();});
+document.getElementById("wiz-birth").addEventListener("input",function(e){e.target.value=birthDigits(e.target.value);age=birthLabel(e.target.value);var h=document.getElementById("wiz-age-hint");if(h){h.textContent=age?("✔ "+age+" 로 계산됐어요."):"8자리로 입력해 주세요 (예: 20010315)";}check();});
 single("#wiz-gender",function(c){gender=c.dataset.g;check()});
 single("#wiz-region",function(c){region=c.dataset.r;check()});
 single("#wiz-job",function(c){
@@ -879,7 +880,7 @@ function singleQ(sel,cb){
  });
 }
 document.getElementById("q-birth").addEventListener("change",function(e){qa=birthLabel(e.target.value);checkQ();});
-document.getElementById("q-birth").addEventListener("input",function(e){qa=birthLabel(e.target.value);checkQ();});
+document.getElementById("q-birth").addEventListener("input",function(e){e.target.value=birthDigits(e.target.value);qa=birthLabel(e.target.value);checkQ();});
 singleQ("#q-gender",function(c){qg=c.dataset.g;checkQ()});
 singleQ("#q-region",function(c){qr=c.dataset.r;checkQ()});
 singleQ("#q-job",function(c){
