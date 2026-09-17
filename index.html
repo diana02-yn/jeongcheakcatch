@@ -222,7 +222,7 @@ body.dark .scholar-info{background:#141d33;color:#c6d2e6}
 <button class="wchip" data-j="대학생">🎓 대학생<small>휴학생 포함</small></button>
 </div></div>
 <div class="wrow" id="wiz-scholar-wrap" style="display:none;background:#f4f7ff;border:1px solid #d7e3ff;border-radius:12px;padding:10px 12px">
-<label style="margin-top:0">🎓 국가장학금 구간 <span class="req opt">대학생 선택 시</span></label> <button type="button" class="link" id="q-scholar-info-btn" style="font-size:12.5px">소득구간 확인 →</button><div class="scholar-info" id="q-scholar-info">국가장학금 소득구간은 가구 소득·재산 기준으로 1~10구간으로 나뉩니다.<br>· 1~3구간: 등록금 전액 + 생활비·주거지원 병행 추천<br>· 4~6구간: 근로장학·교내장학 + 자격증 응시료 지원 추천<br>· 잘 모르면 ‘잘 모르겠어요’를 고르세요. 정확한 구간은 한국장학재단에서 확인하세요.</div> <button type="button" class="link" id="wiz-scholar-info-btn" style="font-size:12.5px">소득구간 확인 →</button><div class="scholar-info" id="wiz-scholar-info">국가장학금 소득구간은 가구 소득·재산 기준으로 1~10구간으로 나뉩니다.<br>· 1~3구간: 등록금 전액 + 생활비·주거지원 병행 추천<br>· 4~6구간: 근로장학·교내장학 + 자격증 응시료 지원 추천<br>· 잘 모르면 ‘잘 모르겠어요’를 고르세요. 정확한 구간은 한국장학재단에서 확인하세요.</div>
+<label style="margin-top:0">🎓 국가장학금 구간 <span class="req opt">대학생 선택 시</span></label>  <button type="button" class="link" id="wiz-scholar-info-btn" style="font-size:12.5px">소득구간 확인 →</button><div class="scholar-info" id="wiz-scholar-info">국가장학금 소득구간은 가구 소득·재산 기준으로 1~10구간으로 나뉩니다.<br>· 1~3구간: 등록금 전액 + 생활비·주거지원 병행 추천<br>· 4~6구간: 근로장학·교내장학 + 자격증 응시료 지원 추천<br>· 잘 모르면 ‘잘 모르겠어요’를 고르세요. 정확한 구간은 한국장학재단에서 확인하세요.</div>
 <select id="wiz-scholar">
 <option value="">구간을 선택해주세요 (선택)</option>
 <option>1구간</option><option>2구간</option><option>3구간</option><option>4구간</option>
@@ -298,7 +298,7 @@ body.dark .scholar-info{background:#141d33;color:#c6d2e6}
 </div></div>
 <div class="wrow" id="q-scholar-wrap" style="display:none;background:#f4f7ff;border:1px solid #d7e3ff;border-radius:12px;padding:10px 12px">
 <label style="margin-top:0">🎓 국가장학금 구간 <span class="req opt">대학생 선택 시</span></label>
-<select id="q-scholar">
+<button type="button" class="link" id="q-scholar-info-btn" style="font-size:12.5px">소득구간 확인 →</button><div class="scholar-info" id="q-scholar-info">국가장학금 소득구간은 가구 소득·재산 기준으로 1~10구간으로 나뉩니다.<br>· 1~3구간: 등록금 전액 + 생활비·주거지원 병행 추천<br>· 4~6구간: 근로장학·교내장학 + 자격증 응시료 지원 추천<br>· 잘 모르면 ‘잘 모르겠어요’를 고르세요. 정확한 구간은 한국장학재단에서 확인하세요.</div><select id="q-scholar">
 <option value="">구간을 선택해주세요 (선택)</option>
 <option>1구간</option><option>2구간</option><option>3구간</option><option>4구간</option>
 <option>5구간</option><option>6구간</option><option>7구간</option><option>8구간</option>
@@ -339,20 +339,14 @@ body.dark .scholar-info{background:#141d33;color:#c6d2e6}
 <a class="btn btn-acc" href="#match">내 혜택 1분 매칭 체험</a>
 <a class="btn btn-ghost" href="#policies">지원 가능한 공고 보기</a>
 </div>
-<div class="kpi">
-<div><b>67.7%</b><span>청년 정책 비인지율 (대전 실태조사)</span></div>
-<div><b>9개</b><span>지금 신청 가능한 대표 공고 큐레이션</span></div>
-<div><b>6명</b><span>합격 인증 선배 멘토 상주</span></div>
-<div><b>최대 100%</b><span>신청 성공 시 구독료 페이백 챌린지</span></div>
-</div>
-</div>
-<div class="hero-card">
+</div><div class="hero-card">
 <img src="https://picsum.photos/seed/catch-youth/900/420" alt="청년 일상">
 <div class="hc">
 <b>오늘의 캐치 알림 예시</b>
 <p class="pmeta" style="margin:6px 0">대전 거주 · 월소득 230만원 · 무주택 사회초년생 → <b style="color:var(--pri)">3개 매칭 · 예상 혜택 312만원 · VIP 패스(24,900원)의 125배</b></p>
 <div class="ptag"><span>월세지원</span><span>전세임대</span><span>도약계좌</span></div>
-<p style="margin-top:10px"><a class="link" href="#match">내 조건으로 다시 계산하기 →</a></p>
+<p style="margin-top:10px"><a class="link" href="#match">내 조건으로 다시 계산하기 →</a></p><div class="kpi">
+<div><b>67.7%</b><span>청년 정책 비인지율 (대전 실태조사)</span></div>
 </div></div>
 </div></div>
 
@@ -470,25 +464,6 @@ body.dark .scholar-info{background:#141d33;color:#c6d2e6}
 <div class="rwcard hot"><span class="pill hot">BEST · 합격 패키지</span><b>AI + 선배 멘토 콤보 사업계획서·자소서 검수권</b><div class="amt2">건당 35,000원</div><p class="pmeta">AI 1차 교정 → 인증 멘토 2차 직접 첨삭 → 48시간 내 결과 + 반려 시 재첨삭 1회. 창업·인턴·공모 지원 직전에 가장 많이 팔리는 상품입니다.</p><button class="btn btn-pri" data-buy="콤보 검수권 35,000원" style="margin-top:8px">검수권 구매하기</button></div>
 <div class="rwcard"><span class="pill">3분 컷</span><b>LH·행복주택 자격서류 3분 AI 검증 + 대리 체크리스트</b><div class="amt2">건당 4,900원</div><p class="pmeta">등본·계약서·소득서류 사진만 올리면 누락·반려 포인트를 3분 안에 짚어줍니다. 결과는 체크리스트 PDF로 저장.</p><button class="btn btn-ghost" data-buy="서류검증 4,900원" style="margin-top:8px">4,900원에 검증받기</button></div>
 </div>
-</section>
-
-<!-- B2B -->
-<section class="block" id="b2b">
-<div class="sec-t">제휴·B2B 사전예약 — 앱 완성 전에 파는 리포트</div>
-<p class="sec-s">2,000만 원 자본에서는 <b>앱 구축 전에 파는 것</b>이 생존 전략입니다. 아래 2종을 사전예약으로 수주해 초기 개발비를 충당합니다.</p>
-<div class="grid2">
-<div class="rwcard"><span class="pill hot">지자체·대학용</span><b>대전 청년 정책 만족도·미신청 원인 분석 리포트 (프로젝트성)</b><div class="amt2">회당 100~300만원</div><p class="pmeta">매칭 체험·상담 데이터로 “왜 청년이 신청을 포기하는가”를 정리한 샘플 리포트를 정책 담당자·취창업지원단에 제안합니다.</p><button class="btn btn-ghost" data-buy="B2B 리포트 사전상담" style="margin-top:8px">샘플 리포트 요청하기</button></div>
-<div class="rwcard"><span class="pill">지역상권용</span><b>청년 타겟 배너·푸시 (카페·스터디룸·사진관 등)</b><div class="amt2">월 10~20만원</div><p class="pmeta">대전 청년 우대 가게에 매칭 결과·알림 옆 작은 배너와 마감알림 푸시 1회를 묶어 저렴하게 수주합니다.</p><button class="btn btn-ghost" data-buy="지역광고 사전상담" style="margin-top:8px">광고 사전예약 상담</button></div>
-</div>
-<h4 style="margin:16px 0 8px">2,000만 원 초슬림 운용 선언 (돈이 새지 않게)</h4>
-<div style="overflow-x:auto"><table class="lean">
-<tr><th>구분</th><th>집행 예산</th><th>절감 노하우</th></tr>
-<tr><td><b>개발·서버 (RAG·LLM API)</b></td><td>300~500만원</td><td>노코드·로우코드 + 오픈소스 조합, 호출량 상한으로 API비 통제</td></tr>
-<tr><td><b>초기 유저 확보 (마케팅)</b></td><td>400~500만원</td><td>대학생 서포터즈·에브리타임·지역 커뮤니티 바이럴, 당근 지역광고</td></tr>
-<tr><td><b>멘토 확보·족보 리워드</b></td><td>200만원</td><td>초기 멘토 20~30명 수수료 우대 + 작성 지원금</td></tr>
-<tr><td><b>예비비</b></td><td>800~900만원</td><td>매출 전까지 최소 6개월~1년 버틸 최소 운영자금으로 보존</td></tr>
-</table></div>
-<p class="pmeta" style="margin-top:8px">수익이 나는 순서: ① 족보·단건으로 현금 먼저 → ② VIP 패스 구독 쌓기 → ③ B2B 리포트·광고로 고정수익. 이 순서대로 화면도 배치했습니다.</p>
 </section>
 
 <!-- ABOUT -->
@@ -722,7 +697,7 @@ function wizRecommend(){
   d.innerHTML="<h3>"+esc(p.title)+"</h3><p>💰 "+esc(p.amt)+" · ⏰ "+esc(p.dday)+"("+p.due+")<br>📄 "+esc(p.docs.slice(0,3).join(" · "))+(p.docs.length>3?" 외":"")+"<br><span style='font-size:12px;color:#647084'>"+tag+" · "+esc(p.org)+"</span></p><div style='margin-top:8px;display:flex;gap:6px'><a href='#policy-"+p.id+"' class='wbtn pri' style='flex:1;text-align:center;font-size:13px' data-close>상세·서류 보기</a></div>";
   box.appendChild(d);
  });
- box.querySelectorAll("[data-close]").forEach(function(a){a.onclick=hideWiz});
+ box.querySelectorAll("[data-close]").forEach(function(a){a.onclick=function(){try{sessionStorage.setItem("catch_return","wiz")}catch(e){}hideWiz}});
  var log=document.getElementById("wiz-chatlog");
  if(!log.children.length){
   var extra=(job==="대학생")?" 장학금 구간이 있으면 등록금·생활비형 공고도 같이 봐드려요.":"";
@@ -895,6 +870,6 @@ var back=document.getElementById("ov-back");
 if(back&&!back._bound){back._bound=1;back.onclick=function(){try{if(location.hash.indexOf("#policy-")===0){history.back();}else{document.getElementById("overlay").style.display="none";}}catch(e){document.getElementById("overlay").style.display="none";}}}
 }catch(e){}
 })();</script>
-
+<script>(function(){try{document.addEventListener("click",function(e){var a=e.target&&e.target.closest?e.target.closest('a[href^="#policy-"]'):null;if(!a)return;var w=document.getElementById("wiz"),q=document.getElementById("quick");if(q&&q.classList.contains("show")){try{sessionStorage.setItem("catch_return","quick")}catch(x){}}else if(w&&w.classList.contains("show")){try{sessionStorage.setItem("catch_return","wiz")}catch(x){}}},true);var back=document.getElementById("ov-back");if(back&&!back._fixed){back._fixed=1;back.onclick=function(){var ov=document.getElementById("overlay");if(ov)ov.style.display="none";var r="";try{r=sessionStorage.getItem("catch_return")||""}catch(x){}try{if(location.hash.indexOf("#policy-")===0){history.back();}else{if(ov)ov.style.display="none";}}catch(x){if(ov)ov.style.display="none";}setTimeout(function(){try{if(r==="quick"){var q=document.getElementById("quick");if(q){q.classList.add("show");var s1=document.getElementById("qs1"),s2=document.getElementById("qs2");if(s1)s1.classList.remove("on");if(s2)s2.classList.add("on");}}else if(r==="wiz"){var w=document.getElementById("wiz");if(w){w.classList.add("show");if(window.wizGo)wizGo(3);}}}catch(x){}} ,80);};}}catch(e){}})();</script>
 <!--ethos-badge--><div style="text-align:center;padding:16px 8px 20px;font:12px/1.6 -apple-system,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;color:#9aa1a9">이 페이지는 <a href="https://ethos.ai.kr" target="_blank" rel="noopener" style="color:#8a919b;text-decoration:underline">에토스AI 코드</a>로 만들어졌습니다</div>
 </body></html>
