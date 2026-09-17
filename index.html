@@ -122,6 +122,17 @@ table.lean th{background:#f4f7ff}
 /* 인트로 팝업(네 번째 사진 스타일과 동일) */
 #intro{position:fixed;inset:0;z-index:300;display:none;align-items:center;justify-content:center;background:rgba(15,25,45,.55);padding:16px}
 #intro.show{display:flex}
+.intro-slidebox{overflow:hidden;border-radius:12px}
+.intro-track{display:flex;transition:transform .45s ease}
+.intro-slide{flex:0 0 100%;box-sizing:border-box;padding:2px}
+.intro-dots{display:flex;gap:6px;justify-content:center;margin-top:10px}
+.intro-dots button{width:8px;height:8px;border-radius:999px;border:none;background:#d4dce6;cursor:pointer;padding:0}
+.intro-dots button.on{background:#1857d6;width:22px}
+.intro-nav{display:flex;align-items:center;gap:8px;margin-top:10px}
+.intro-arrow{border:1px solid #e3e8ef;background:#fff;border-radius:9px;width:34px;height:34px;font-size:16px;cursor:pointer;flex:0 0 34px}
+.intro-foot2{display:flex;gap:8px;margin-top:12px}
+.intro-foot2 button{flex:1;border:1px solid #e3e8ef;background:#fff;border-radius:10px;padding:11px 0;font-size:13.5px;font-weight:800;cursor:pointer;color:#33415c}
+.intro-foot2 button.dark{background:#0f1930;color:#fff;border-color:#0f1930}
 /* AI 비서 팝업(첫방문 마법사) */
 #wiz{position:fixed;inset:0;z-index:200;display:none;align-items:center;justify-content:center;background:rgba(15,25,45,.55);padding:16px}
 #wiz.show{display:flex}
@@ -194,7 +205,7 @@ body.dark .scholar-info{background:#141d33;color:#c6d2e6}
 
 
 
-<!-- 인트로 팝업: 세 번째 사진 내용을 네 번째 사진 스타일로 -->
+<!-- 인트로 팝업: 한 칸씩 옆으로 넘어가는 소개 카드 (창 들어가자마자 표시) -->
 <div id="intro" role="dialog" aria-modal="true" aria-label="정책캐치 소개">
 <div class="wiz-card">
 <div class="wiz-head">
@@ -204,13 +215,23 @@ body.dark .scholar-info{background:#141d33;color:#c6d2e6}
 <button id="intro-x" aria-label="닫기" style="margin-left:auto;border:none;background:#f2f4f7;border-radius:9px;width:34px;height:34px;font-size:16px;cursor:pointer">✕</button>
 </div>
 <h2 style="margin-top:12px;font-size:22px;line-height:1.45">몰라서 놓치던 청년 돈,<br>여기서 한 번에 캐치하세요 🙌</h2>
-<p id="intro-sub">정책캐치는 <b>내 조건에 맞는 청년 정책만</b> 골라주는 앱이에요.</p>
+<p id="intro-sub">옆으로 넘기면 <b>3가지</b>가 한 칸씩 보여요.</p>
 </div>
 <div class="wiz-body">
-<div class="wres"><h3>① 10초 맞춤 매칭</h3><p>성별·지역·고용·소득 4가지만 고르면 내 혜택만 골라줘요.</p></div>
-<div class="wres"><h3>② 마감·서류까지 챙김</h3><p>마감 임박 알림 + 서류 체크 + AI 자소서 초안까지 한 번에.</p></div>
-<div class="wres"><h3>③ 성공하면 돌려받음</h3><p>VIP 패스(월 24,900원) 신청 성공 시 구독료 50~100% 페이백.</p></div>
-<div class="wnav"><button class="wbtn pri" id="intro-go">내 혜택 찾으러 가기 →</button></div>
+<div class="intro-slidebox">
+<div class="intro-track" id="intro-track">
+<div class="intro-slide"><div class="wres"><h3>① 10초 맞춤 매칭</h3><p>성별·지역·고용·소득 4가지만 고르면 내 혜택만 골라줘요.</p><p style="margin-top:6px;font-size:12.5px;color:#1857d6;font-weight:800">67.7%가 몰라서 놓친 혜택 → 10초면 확인</p></div></div>
+<div class="intro-slide"><div class="wres"><h3>② 마감·서류까지 챙김</h3><p>마감 임박 알림 + 서류 체크 + AI 자소서 초안까지 한 번에.</p><p style="margin-top:6px;font-size:12.5px;color:#1857d6;font-weight:800">지원 가능한 공고 9개 · 멘토 6명 대기 중</p></div></div>
+<div class="intro-slide"><div class="wres"><h3>③ 성공하면 돌려받음</h3><p>VIP 패스(월 24,900원) 신청 성공 시 구독료 50~100% 페이백.</p><p style="margin-top:6px;font-size:12.5px;color:#1857d6;font-weight:800">실패하면 손해 보는 구조가 아니에요</p></div></div>
+</div>
+</div>
+<div class="intro-nav">
+<button class="intro-arrow" id="intro-prev" aria-label="이전">‹</button>
+<div class="intro-dots" id="intro-dots" style="flex:1"><button aria-label="1" class="on"></button><button aria-label="2"></button><button aria-label="3"></button></div>
+<button class="intro-arrow" id="intro-next" aria-label="다음">›</button>
+</div>
+<div class="wnav" style="margin-top:12px"><button class="wbtn pri" id="intro-go">내 혜택 찾으러 가기 →</button></div>
+<div class="intro-foot2"><button id="intro-today">오늘만 그만보기</button><button id="intro-close" class="dark">닫기</button></div>
 <p class="wiz-foot">📍 정책캐치 · hello@policy-catch.kr · 평일 10:00–18:00<br>닫으면 맞춤 입력창이 이어서 열립니다.</p>
 </div>
 </div>
@@ -271,7 +292,7 @@ body.dark .scholar-info{background:#141d33;color:#c6d2e6}
 <div class="wnav"><button class="wbtn pri" id="wiz-next1" disabled>필수 항목을 모두 선택해주세요</button></div>
 <p class="wiz-foot">📍 정책캐치 · hello@policy-catch.kr · 평일 10:00–18:00<br>입력값은 이 기기에서만 추천에 쓰이고 서버로 전송되지 않습니다.</p>
 </div>
-<script>(function(){var saved=null;try{saved=localStorage.getItem("catch_wiz_profile")}catch(e){saved=null}var w=document.getElementById("wiz");var it=document.getElementById("intro");if(!saved&&it){it.classList.add("show");}var x=document.getElementById("wiz-x");if(x&&!x._bound){x._bound=1;x.onclick=function(){var ww=document.getElementById("wiz");if(ww)ww.classList.remove("show");};}var ww=document.getElementById("wiz");if(ww&&!ww._bound){ww._bound=1;ww.addEventListener("click",function(e){if(e.target===ww)ww.classList.remove("show");});}var fab=document.getElementById("ai-fab");if(fab&&!fab._bound){fab._bound=1;fab.onclick=function(){var w2=document.getElementById("wiz");if(w2)w2.classList.add("show");};}})();</script>
+<script>(function(){var saved=null,hide=null;try{saved=localStorage.getItem("catch_wiz_profile")}catch(e){saved=null}try{hide=localStorage.getItem("catch_intro_hide")}catch(e){hide=null}var today=new Date();var tstr=today.getFullYear()+"-"+("0"+(today.getMonth()+1)).slice(-2)+"-"+("0"+today.getDate()).slice(-2);var w=document.getElementById("wiz");var it=document.getElementById("intro");if(it&&hide!==tstr){it.classList.add("show");}var x=document.getElementById("wiz-x");if(x&&!x._bound){x._bound=1;x.onclick=function(){var ww=document.getElementById("wiz");if(ww)ww.classList.remove("show");};}var ww=document.getElementById("wiz");if(ww&&!ww._bound){ww._bound=1;ww.addEventListener("click",function(e){if(e.target===ww)ww.classList.remove("show");});}var fab=document.getElementById("ai-fab");if(fab&&!fab._bound){fab._bound=1;fab.onclick=function(){var w2=document.getElementById("wiz");if(w2)w2.classList.add("show");};}})();</script>
 <!-- 3단계: 큐레이션 + 추가 질문 -->
 <div class="wiz-step" id="ws3">
 <p style="font-size:13.5px;color:#33415c" id="wiz-sum"></p>
@@ -899,17 +920,40 @@ if(back&&!back._bound){back._bound=1;back.onclick=function(){try{if(location.has
 })();</script>
 <script>(function(){try{document.addEventListener("click",function(e){var a=e.target&&e.target.closest?e.target.closest('a[href^="#policy-"]'):null;if(!a)return;var w=document.getElementById("wiz"),q=document.getElementById("quick");if(q&&q.classList.contains("show")){try{sessionStorage.setItem("catch_return","quick")}catch(x){}}else if(w&&w.classList.contains("show")){try{sessionStorage.setItem("catch_return","wiz")}catch(x){}}},true);var back=document.getElementById("ov-back");if(back&&!back._fixed){back._fixed=1;back.onclick=function(){var ov=document.getElementById("overlay");if(ov)ov.style.display="none";var r="";try{r=sessionStorage.getItem("catch_return")||""}catch(x){}try{if(location.hash.indexOf("#policy-")===0){history.back();}else{if(ov)ov.style.display="none";}}catch(x){if(ov)ov.style.display="none";}setTimeout(function(){try{if(r==="quick"){var q=document.getElementById("quick");if(q){q.classList.add("show");var s1=document.getElementById("qs1"),s2=document.getElementById("qs2");if(s1)s1.classList.remove("on");if(s2)s2.classList.add("on");}}else if(r==="wiz"){var w=document.getElementById("wiz");if(w){w.classList.add("show");if(window.wizGo)wizGo(3);}}}catch(x){}} ,80);};}}catch(e){}})();</script>
 <script>
-/* 인트로 -> 기존 팝업 순서: 인트로를 닫으면 저장값 없을 때만 #wiz 표시 */
+/* 인트로: 한칸씩 옆 슬라이드 + 들어가자마자 표시 + 오늘그만보기/닫기 -> 닫으면 #wiz */
 (function(){
 var it=document.getElementById("intro");
+var track=document.getElementById("intro-track");
+var dotsBox=document.getElementById("intro-dots");
+var idx=0,timer=null;
+function dots(){if(!dotsBox)return;var ds=dotsBox.querySelectorAll("button");for(var k=0;k<ds.length;k++){if(k===idx)ds[k].classList.add("on");else ds[k].classList.remove("on");}}
+function go(n){var total=3;idx=(n+total)%total;if(track)track.style.transform="translateX(-"+(idx*100)+"%)";dots();}
+function auto(){stop();timer=setInterval(function(){if(it&&it.classList.contains("show"))go(idx+1);},2500);}
+function stop(){if(timer){clearInterval(timer);timer=null;}}
+if(track){
+  var sx=null;
+  track.addEventListener("touchstart",function(e){sx=e.touches[0].clientX;stop();},{passive:true});
+  track.addEventListener("touchend",function(e){if(sx===null)return;var dx=e.changedTouches[0].clientX-sx;if(dx<-30)go(idx+1);else if(dx>30)go(idx-1);sx=null;auto();},{passive:true});
+}
+var pv=document.getElementById("intro-prev");if(pv)pv.onclick=function(){go(idx-1);auto();};
+var nx=document.getElementById("intro-next");if(nx)nx.onclick=function(){go(idx+1);auto();};
+if(dotsBox){var ds=dotsBox.querySelectorAll("button");for(var k=0;k<ds.length;k++){(function(k2){ds[k2].onclick=function(){go(k2);auto();};})(k);}}
 function openWizAfter(){
+  stop();
   var saved=null;try{saved=localStorage.getItem("catch_wiz_profile")}catch(e){saved=null}
   if(it)it.classList.remove("show");
   if(!saved){var w=document.getElementById("wiz");if(w)w.classList.add("show");}
 }
+function todayHide(){
+  try{var t=new Date();var s=t.getFullYear()+"-"+("0"+(t.getMonth()+1)).slice(-2)+"-"+("0"+t.getDate()).slice(-2);localStorage.setItem("catch_intro_hide",s);}catch(e){}
+  openWizAfter();
+}
 var x=document.getElementById("intro-x");if(x)x.onclick=openWizAfter;
 var g=document.getElementById("intro-go");if(g)g.onclick=openWizAfter;
+var c=document.getElementById("intro-close");if(c)c.onclick=openWizAfter;
+var td=document.getElementById("intro-today");if(td)td.onclick=todayHide;
 if(it)it.addEventListener("click",function(e){if(e.target===it)openWizAfter();});
+go(0);auto();
 })();
 </script>
 
