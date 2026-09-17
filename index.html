@@ -550,7 +550,7 @@ window.addEventListener("hashchange",route);
 document.getElementById("ov-x").onclick=function(){history.back()};
 document.getElementById("overlay").addEventListener("click",function(e){if(e.target.id==="overlay")history.back()});
 
-/* ===== 첫방문 필수프로필 + AI 비서 (서버전송 없음) ===== */
+/* ===== 첫방문 마법사 + AI 비서 (서버전송 없음) ===== */
 (function(){
 var wiz=document.getElementById("wiz");
 var fab=document.getElementById("ai-fab");
@@ -563,89 +563,77 @@ try{if(!localStorage.getItem("catch_wiz_done")){setTimeout(showWiz,800)}}catch(e
 window.wizGo=function(n){
  var steps=document.querySelectorAll(".wiz-step");
  steps.forEach(function(el){el.classList.remove("on")});
- var cur=document.getElementById(n===1?"ws1":"ws3");
+ var cur=document.getElementById(n===1?"ws1":n===2?"ws2":"ws3");
  if(cur)cur.classList.add("on");
  var ti=document.getElementById("wiz-title"),su=document.getElementById("wiz-sub");
- if(n===1){ti.innerHTML="나에게 딱 맞는 청년 정책과<br>정보를 추천해드릴게요 🙌";su.innerHTML="<b style='color:#d33'>필수</b> 항목 4가지를 골라주세요. 10초면 맞춤 혜택을 골라드려요!";}
- if(n===3){ti.innerHTML="캐치 완료! 🎉<br>지금 노려볼 혜택이에요";su.innerHTML="조건에 맞는 2~3개를 핵심 요약(금액·마감·서류)으로 보여드려요. 더 궁금한 건 아래 채팅에 편하게 물어보세요!";}
+ if(n===1){ti.innerHTML="안녕하세요! 👋<br>어떤 혜택이 궁금하세요?";su.innerHTML="아래에서 해당하는 주제를 <b>여러 개</b> 골라주세요. 고른 주제에 맞춰 다음 단계에서 딱 맞는 질문만 드려요."}
+ if(n===2){ti.innerHTML="딱 맞는 혜택을 위해<br>3가지만 알려주세요 🙏";su.innerHTML="거주지·소득·상태 3가지만 알면 매칭 정확도가 확 올라가요. 부담 없이 골라주세요!"}
+ if(n===3){ti.innerHTML="캐치 완료! 🎉<br>지금 노려볼 혜택이에요";su.innerHTML="2~3개만 핵심 요약(금액·마감·서류)으로 보여드려요. 더 궁금한 건 아래 채팅에 편하게 물어보세요!"}
  wiz.querySelector(".wiz-card").scrollTop=0;
 };
-var gender="",region="",job="",scholar="",incVal=null,incLabel="";
-function single(sel,cb){
- document.querySelectorAll(sel+" .wchip").forEach(function(c){
-  c.onclick=function(){
-   document.querySelectorAll(sel+" .wchip").forEach(function(x){x.classList.remove("on")});
-   c.classList.add("on");cb(c);
-  };
- });
-}
-single("#wiz-gender",function(c){gender=c.dataset.g;check()});
-single("#wiz-region",function(c){region=c.dataset.r;check()});
-single("#wiz-job",function(c){
- job=c.dataset.j;
- var w=document.getElementById("wiz-scholar-wrap");
- if(job==="대학생"){w.style.display="block"}else{w.style.display="none";document.getElementById("wiz-scholar").value="";scholar="";}
- check();
+// 1단계: 카테고리 복수선택
+var cats=[];
+document.querySelectorAll("#wiz-cats .wchip").forEach(function(c){
+ c.onclick=function(){
+  c.classList.toggle("on");
+  cats=[].map.call(document.querySelectorAll("#wiz-cats .wchip.on"),function(x){return x.dataset.c});
+  var b=document.getElementById("wiz-next1");
+  b.disabled=!cats.length;
+  b.textContent=cats.length?("다음 ("+cats.length+"개 선택됨)"):("다음 (주제 선택 후)");
+ };
 });
-document.getElementById("wiz-scholar").onchange=function(e){scholar=e.target.value;check();};
-single("#wiz-inc",function(c){
- var cw=document.getElementById("wiz-inc-custom-wrap");
- if(c.dataset.v==="custom"){cw.style.display="block";incVal=null;incLabel="";}
- else{cw.style.display="none";document.getElementById("wiz-inc-custom").value="";incVal=+c.dataset.v;incLabel=c.dataset.l;}
- check();
+document.getElementById("wiz-next1").onclick=function(){wizGo(2)};
+// 2단계: 상태 단일선택
+var status="대학생";
+document.querySelectorAll("#wiz-status .wchip").forEach(function(c){
+ c.onclick=function(){
+  document.querySelectorAll("#wiz-status .wchip").forEach(function(x){x.classList.remove("on")});
+  c.classList.add("on");status=c.dataset.s;
+ };
 });
-document.getElementById("wiz-inc-custom").addEventListener("input",function(e){
- var n=parseInt((e.target.value||"").replace(/[^0-9]/g,""),10);
- if(!isNaN(n)&&n>0&&n<=2000){incVal=n;incLabel="월 약 "+n+"만원(직접입력)"}else{incVal=null;incLabel=""}
- check();
-});
-function check(){
- var b=document.getElementById("wiz-next1");
- var done=[gender,region,job,(incVal!==null&&incVal!==undefined?String(incVal):"")].filter(function(x){return x&&x.length}).length;
- if(done>=4){b.disabled=false;b.textContent="내 맞춤 혜택 보기 🎉 ("+gender+" · "+region+" · "+job+")";}
- else{b.disabled=true;b.textContent="필수 항목을 모두 선택해주세요 ("+done+"/4)";}
-}
-document.getElementById("wiz-next1").onclick=function(){wizRecommend();wizGo(3)};
-document.getElementById("wiz-back3").onclick=function(){wizGo(1)};
+document.getElementById("wiz-back2").onclick=function(){wizGo(1)};
+document.getElementById("wiz-next2").onclick=function(){wizRecommend();wizGo(3)};
+document.getElementById("wiz-back3").onclick=function(){wizGo(2)};
 document.getElementById("wiz-done").onclick=hideWiz;
 document.getElementById("wiz-go-jokbo").onclick=function(){hideWiz();location.hash="#market"};
 document.getElementById("wiz-go-docs").onclick=function(){hideWiz();location.hash="#docs"};
-function regionPool(){
- if(region==="그외"){return POLICIES.filter(function(p){return p.id===2||p.id===3||p.id===4||p.id===5||p.id===9})}
- return POLICIES.slice();
+function catMatch(p){
+ if(!cats.length)return true;
+ var hit=false;
+ cats.forEach(function(c){
+  if(c==="주거"&&(p.cat==="주거"))hit=true;
+  if(c==="현금"&&(p.cat==="자산"||p.id===4))hit=true;
+  if(c==="취창업"&&(p.cat==="취업"||p.cat==="교육"))hit=true;
+  if(c==="자유")hit=true;
+ });
+ return hit;
 }
 function wizRecommend(){
- var pool=regionPool().filter(function(p){return incVal>=p.min-50&&incVal<=p.max+200});
- if(!pool.length)pool=regionPool();
- if(job==="구직자")pool.sort(function(a,b){return ((b.cat==="취업")?1:0)-((a.cat==="취업")?1:0)});
- if(job==="재직자")pool.sort(function(a,b){return ((b.cat==="자산"||b.cat==="주거")?1:0)-((a.cat==="자산"||a.cat==="주거")?1:0)});
- if(job==="창업자")pool.sort(function(a,b){return (b.id===5?1:0)-(a.id===5?1:0)});
- if(job==="대학생")pool.sort(function(a,b){return ((b.cat==="주거"||b.cat==="교육")?1:0)-((a.cat==="주거"||a.cat==="교육")?1:0)});
+ var city=document.getElementById("wiz-city").value;
+ var inc=+document.getElementById("wiz-inc").value||0;
+ var pool=POLICIES.filter(function(p){return catMatch(p)&&inc>=p.min-50&&inc<=p.max+200});
+ if(status==="취준생")pool.sort(function(a,b){return (b.cat==="취업")-(a.cat==="취업")});
+ if(status==="대학생")pool.sort(function(a,b){return (b.cat==="주거"||b.cat==="교육")-(a.cat==="주거"||a.cat==="교육")});
+ if(status==="직장인")pool.sort(function(a,b){return (b.cat==="자산")-(a.cat==="자산")});
+ if(status==="창업")pool.sort(function(a,b){return (b.id===5?1:0)-(a.id===5?1:0)});
  var top=pool.slice(0,3);
- if(!top.length)top=regionPool().slice(0,3);
- var regionTxt=(region==="대전"?"📍 대전 거주":"🌐 그 외 지역(전국 혜택)");
- var scholarTxt=(job==="대학생"&&scholar)?(" · 🎓 국가장학금 "+scholar):"";
- document.getElementById("wiz-sum").innerHTML=regionTxt+" · "+esc(gender)+"/"+esc(job)+" · "+esc(incLabel)+" 기준으로 <b>"+top.length+"개</b>를 골랐어요"+scholarTxt+". 카드 누르면 상세·서류가 열립니다.";
+ if(!top.length)top=POLICIES.slice(0,3);
+ document.getElementById("wiz-sum").innerHTML="📍 "+esc(city)+" · "+esc(status)+" · 월소득 약 "+inc+"만원 기준으로 <b>"+top.length+"개</b>를 골랐어요. 카드 누르면 상세·서류가 열립니다.";
  var box=document.getElementById("wiz-res");box.innerHTML="";
  top.forEach(function(p){
   var d=document.createElement("div");d.className="wres";
-  var tag=(region==="그외")?"전국":"대전+전국";
-  d.innerHTML="<h3>"+esc(p.title)+"</h3><p>💰 "+esc(p.amt)+" · ⏰ "+esc(p.dday)+"("+p.due+")<br>📄 "+esc(p.docs.slice(0,3).join(" · "))+(p.docs.length>3?" 외":"")+"<br><span style='font-size:12px;color:#647084'>"+tag+" · "+esc(p.org)+"</span></p><div style='margin-top:8px;display:flex;gap:6px'><a href='#policy-"+p.id+"' class='wbtn pri' style='flex:1;text-align:center;font-size:13px' data-close>상세·서류 보기</a></div>";
+  d.innerHTML="<h3>"+esc(p.title)+"</h3><p>💰 "+esc(p.amt)+" · ⏰ "+esc(p.dday)+"("+p.due+")<br>📄 "+esc(p.docs.slice(0,3).join(" · "))+(p.docs.length>3?" 외":"")+"</p><div style='margin-top:8px;display:flex;gap:6px'><a href='#policy-"+p.id+"' class='wbtn pri' style='flex:1;text-align:center;font-size:13px' data-close>상세·서류 보기</a></div>";
   box.appendChild(d);
  });
  box.querySelectorAll("[data-close]").forEach(function(a){a.onclick=hideWiz});
+ // 첫 추천을 채팅에도 인사로 남김
  var log=document.getElementById("wiz-chatlog");
  if(!log.children.length){
-  var extra=(job==="대학생")?" 장학금 구간이 있으면 등록금·생활비형 공고도 같이 봐드려요.":"";
-  botSay("찾았어요! 🎉 "+esc(gender)+"/"+esc(job)+" · "+esc(incLabel)+" 조건에 맞는 "+top.length+"개를 골랐어요."+extra+"<br>더 물어보세요 — 예: <b>“서류 뭐 필요해?” “마감 언제야?” “장학금 구간별 혜택 있어?”</b>");
+  botSay("찾았어요! 🎉 위 3개가 지금 조건에 가장 잘 맞아요. 마감이 임박한 순으로 보여드렸어요.<br>더 물어보세요 — 예: <b>“서류 뭐 필요해?” “마감 언제야?” “창업지원금 족보 있어?”</b>");
  }
  try{
-  var fc=document.getElementById("f-city");
-  if(fc)fc.value=(region==="대전"?"대전광역시":"기타 지역");
-  var fi=document.getElementById("f-income");
-  if(fi)fi.value=incVal;
-  var fj=document.getElementById("f-job");
-  if(fj){fj.value=(job==="구직자"?"구직중·미취업":job==="재직자"?"사회초년생 (중소기업 재직)":job==="창업자"?"창업준비·사업자":"대학생·휴학생");}
+  document.getElementById("f-city").value=city;
+  document.getElementById("f-income").value=inc;
  }catch(e){}
 }
 function botSay(html,links){
@@ -671,15 +659,10 @@ function meSay(q){
 function wizAnswer(q){
  var s=q.replace(/\s+/g,"");
  var has=function(){for(var i=0;i<arguments.length;i++){if(s.indexOf(arguments[i])>-1)return true}return false};
- if(has("안녕","반가","처음"))return{html:"안녕하세요! 👋 성별·지역·고용형태·소득 4가지만 고르면 딱 맞는 혜택 2~3개를 골라드려요. 위 ‘조건 다시 고르기’에서 바꿔보거나, 편하게 질문해보세요!"};
+ if(has("안녕","반가","처음"))return{html:"안녕하세요! 👋 10초 캐치 비서예요. 거주지·소득·상태만 알면 딱 맞는 혜택 2~3개를 골라드려요. 위에서 주제를 다시 고르거나, 편하게 질문해보세요!"};
  if(has("고마","감사","굿","좋아"))return{html:"천만에요! 😊 놓치면 손해 보는 마감부터 챙기세요. 알림 신청은 홈페이지 ‘맞춤매칭’ 섹션에서 바로 할 수 있어요!",links:[{t:"마감 임박 공고 보기",h:"#policies"}]};
- if(has("장학금","등록금","구간"))return{html:"🎓 <b>국가장학금 구간별 팁</b><br>· 저구간(1~3): 등록금 전액 + 생활비형·주거지원과 함께 노리기 좋아요.<br>· 중구간(4~6): 근로장학·교내장학과 자격증 응시료 지원을 병행하세요.<br>· 팝업에서 고용형태를 ‘대학생’으로 고르면 구간을 함께 반영해 추천해드려요!",links:[{t:"자격증 응시료 상세",h:"#policy-7"},{t:"전세임대 상세",h:"#policy-2"}]};
- if(has("대전","그외","그외지역","전국","사는","거주","지역"))return{html:"📍 <b>지역 기준</b><br>· ‘대전’을 고르면 대전 전용(월세지원·자산형성통장·자격증)까지 포함해 추천해요.<br>· ‘그 외 지역’을 고르면 LH·도약계좌·국취제·창업지원금·인턴십 같은 전국 단위 혜택 위주로 골라드려요!",links:[{t:"조건 다시 고르기",h:"#home"}]};
- if(has("성별","여성","남성"))return{html:"성별은 맞춤 정확도를 위한 기본 정보로만 쓰고, 추천은 거주지·고용형태·소득 위주로 골라드려요. 편하게 선택해두시면 됩니다! 😊"};
- if(has("구직","취준","재직","직장","창업","예비창업","대학","휴학"))return{html:"고용형태를 반영했어요! 위 ‘조건 다시 고르기’에서 바꾸면 추천 3개가 바로 다시 골라져요. 대학생을 고르면 국가장학금 구간 선택창이 추가로 열립니다. 🎓"};
- if(has("소득","만원","월급","알바","무소득","직접입력","기타"))return{html:"💸 소득은 ‘"+esc(incLabel||"선택값")+"’ 기준으로 매칭 중이에요. ‘기타(직접입력)’를 고르면 만원 단위 숫자만 적어주세요. 예: 350"};
  if(has("가격","구독","패스","비용","페이백","환급","얼마"))return{html:"💳 <b>패스 안내</b><br>· 스타터 패스 월 9,900원<br>· <b>VIP 올인원 합격 패스 월 24,900원</b> — 신청 성공 인증 시 최대 100% 페이백 챌린지 + 제휴 리워드팩 + 멘토 직접검토 월 2회 포함.<br>낸 돈보다 버는 구조라 고가여도 ROI가 커요!",links:[{t:"패스·보상 보기",h:"#pricing"}]};
- if(has("월세"))return{html:"🏠 <b>대전 청년 월세지원</b><br>· 월 최대 20만원 × 12개월 · 마감 2026-10-24(D-37)<br>· 조건: 대전 거주 19~39세 무주택, 중위 150% 이하<br>· 서류: 등본·임대차계약서·소득금액증명·통장사본"+(region==="그외"?"<br>※ 그 외 지역 선택 중이라 전국 혜택 위주지만, 대전 거주 시 가장 먼저 노려볼 공고예요.":""),links:[{t:"상세·서류 보기",h:"#policy-1"},{t:"합격 족보 보기",h:"#market"}]};
+ if(has("월세"))return{html:"🏠 <b>대전 청년 월세지원</b><br>· 월 최대 20만원 × 12개월 · 마감 2026-10-24(D-37)<br>· 조건: 대전 거주 19~39세 무주택, 중위 150% 이하<br>· 서류: 등본·임대차계약서·소득금액증명·통장사본",links:[{t:"상세·서류 보기",h:"#policy-1"},{t:"합격 족보 보기",h:"#market"}]};
  if(has("전세","LH","보증금"))return{html:"🏠 <b>LH 청년전세임대</b> + <b>보증금 이자지원(연 2%)</b>이 후보예요.<br>· 전세임대: 전세금 최대 1.2억, 마감 11-07<br>· 이자지원: 연 최대 200만원, 마감 11-20<br>계약 전 은행·시 조건을 교차 확인하는 게 합격 포인트!",links:[{t:"전세임대 상세",h:"#policy-2"},{t:"이자지원 상세",h:"#policy-8"}]};
  if(has("국취","구직","수당","현금","당장","바로"))return{html:"💸 <b>국민취업지원제도</b>: 월 50만원 × 6개월, 마감 10-31.<br>구직활동 의무를 채우면 조기취업수당도 가능해요. 활동일지 템플릿이 있으면 통과가 쉬워집니다.",links:[{t:"상세 보기",h:"#policy-4"},{t:"활동일지 족보",h:"#market"}]};
  if(has("창업","사업계획","공모전","아이템"))return{html:"💼 <b>청년창업지원금 최대 1,000만원</b>, 마감 10-02로 가장 임박!(D-15)<br>사업계획서+발표평가가 당락을 갈라요. ‘수익모델 한 장 요약’이 핵심 팁이에요.",links:[{t:"상세 보기",h:"#policy-5"},{t:"심사위원 질문 20선",h:"#market"},{t:"자소서 초안 만들기",h:"#docs"}]};
@@ -690,8 +673,10 @@ function wizAnswer(q){
  if(has("자소서","첨삭","초안","계획서"))return{html:"✍️ 투박한 메모만 있으면 신청서용 초안을 바로 만들어드려요. 홈페이지 ‘서류·자소서’ 섹션에서 사업 선택 → 메모 입력 → 초안 생성 순서예요.",links:[{t:"초안 만들러 가기",h:"#docs"}]};
  if(has("멘토","선배","족보","합격","노하우"))return{html:"📕 인증 멘토 6명 + 족보 8종(9,900~19,900원)이 있어요. LH 가점 족보·심사위원 질문 20선이 가장 인기예요.",links:[{t:"족보마켓 보기",h:"#market"},{t:"멘토 보기",h:"#mentors"}]};
  if(has("마감","언제","기한","알림","놓치"))return{html:"⏰ 가장 임박한 순: ① 자산형성통장 9-30 ② 창업지원금 10-02 ③ 인턴십 10-17.<br>‘맞춤매칭’ 섹션에서 휴대폰 알림(7일·3일·당일)을 신청해두세요!",links:[{t:"알림 신청하기",h:"#match"}]};
- var top=regionPool().slice(0,2);
- return{html:"음, 그 질문은 이렇게 정리해드릴게요! 😊 지금 조건("+esc(region==="대전"?"대전":region==="그외"?"그 외 지역(전국)":"미선택")+" · "+esc(job||"고용형태 미선택")+")에서 확률 높은 2개는 <b>"+esc(top[0].title)+"</b> · <b>"+esc(top[1].title)+"</b>예요.<br>정책 이름(LH·월세·창업지원금 등)이나 <b>마감·서류·족보·장학금</b> 중 하나를 말해보세요!"};
+ if(has("대전","세종","거주","사는"))return{html:"📍 대전 거주 청년이 노릴 3대장: 월세지원·자산형성통장·자격증 응시료예요. 거주지를 대전으로 두면 매칭 정확도가 올라가요. 위 ‘조건 다시 고르기’로 바꿔보세요!"};
+ if(has("대학","취준","직장","프리"))return{html:"조건을 반영했어요! 위 ‘조건 다시 고르기’에서 상태를 바꾸면 추천 3개가 바로 다시 골라져요. 추가로 궁금한 정책 이름을 말해보세요. 예: LH, 도약계좌, 창업지원금"};
+ var top=POLICIES.slice(0,2);
+ return{html:"음, 그 질문은 이렇게 정리해드릴게요! 😊 지금 조건에서 가장 확률 높은 2개는 <b>"+esc(top[0].title)+"</b> · <b>"+esc(top[1].title)+"</b>예요.<br>정책 이름(LH·월세·창업지원금 등)이나 <b>마감·서류·족보</b> 중 하나를 말해보세요. 바로 요약해드릴게요!"};
 }
 document.getElementById("wiz-send").onclick=function(){
  var inp=document.getElementById("wiz-q");
