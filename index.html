@@ -555,11 +555,11 @@ document.getElementById("overlay").addEventListener("click",function(e){if(e.tar
 var wiz=document.getElementById("wiz");
 var fab=document.getElementById("ai-fab");
 function showWiz(){wiz.classList.add("show")}
-function hideWiz(){wiz.classList.remove("show");try{localStorage.setItem("catch_wiz_done","1")}catch(e){}}
+function hideWiz(){wiz.classList.remove("show")}
 document.getElementById("wiz-x").onclick=hideWiz;
 fab.onclick=function(){showWiz();wizGo(1)};
 wiz.addEventListener("click",function(e){if(e.target===wiz)hideWiz()});
-try{if(!localStorage.getItem("catch_wiz_done")){setTimeout(showWiz,800)}}catch(e){setTimeout(showWiz,800)}
+showWiz()
 window.wizGo=function(n){
  var steps=document.querySelectorAll(".wiz-step");
  steps.forEach(function(el){el.classList.remove("on")});
