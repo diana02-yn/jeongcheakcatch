@@ -21,7 +21,7 @@ nav a:hover,nav a.on{background:var(--soft);color:var(--pri)}
 .cta-top{background:var(--pri);color:#fff!important;padding:9px 15px!important}
 .wrap{max-width:1160px;margin:0 auto;padding:0 20px}
 .hero{background:linear-gradient(180deg,#f7f9fc 0%,#eef1f6 60%,#e9edf3 100%);border-bottom:1px solid var(--line)}
-.hero-in{max-width:1160px;margin:0 auto;padding:52px 20px 40px;display:grid;grid-template-columns:1.15fr .85fr;gap:28px;align-items:center}
+.hero-in{max-width:760px;margin:0 auto;padding:52px 20px 40px;text-align:center}.hero-btns{justify-content:center}
 @media(max-width:900px){.hero-in{grid-template-columns:1fr}}
 .badge{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:7px 13px;font-size:13px;font-weight:800;color:var(--pri)}
 .hero h1{font-size:40px;line-height:1.22;margin:16px 0 12px;letter-spacing:-.02em}
@@ -118,6 +118,10 @@ table.lean th{background:#f4f7ff}
 .pill{display:inline-block;font-size:11.5px;font-weight:900;background:#e6f9f0;color:#00875a;border-radius:999px;padding:3px 9px;margin-bottom:6px}
 .pill.hot{background:#eaf0fd;color:var(--pri)}
 
+
+/* 인트로 팝업(네 번째 사진 스타일과 동일) */
+#intro{position:fixed;inset:0;z-index:300;display:none;align-items:center;justify-content:center;background:rgba(15,25,45,.55);padding:16px}
+#intro.show{display:flex}
 /* AI 비서 팝업(첫방문 마법사) */
 #wiz{position:fixed;inset:0;z-index:200;display:none;align-items:center;justify-content:center;background:rgba(15,25,45,.55);padding:16px}
 #wiz.show{display:flex}
@@ -189,6 +193,29 @@ body.dark .scholar-info{background:#141d33;color:#c6d2e6}
 </nav></div></header>
 
 
+
+<!-- 인트로 팝업: 세 번째 사진 내용을 네 번째 사진 스타일로 -->
+<div id="intro" role="dialog" aria-modal="true" aria-label="정책캐치 소개">
+<div class="wiz-card">
+<div class="wiz-head">
+<div style="display:flex;align-items:center;gap:10px">
+<span style="width:38px;height:38px;border-radius:12px;background:#1857d6;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:20px">✓</span>
+<div><b>정책캐치</b><div style="font-size:12px;color:#647084">청년 혜택 캐치 앱 · 10초면 이해돼요</div></div>
+<button id="intro-x" aria-label="닫기" style="margin-left:auto;border:none;background:#f2f4f7;border-radius:9px;width:34px;height:34px;font-size:16px;cursor:pointer">✕</button>
+</div>
+<h2 style="margin-top:12px;font-size:22px;line-height:1.45">몰라서 놓치던 청년 돈,<br>여기서 한 번에 캐치하세요 🙌</h2>
+<p id="intro-sub">정책캐치는 <b>내 조건에 맞는 청년 정책만</b> 골라주는 앱이에요.</p>
+</div>
+<div class="wiz-body">
+<div class="wres"><h3>① 10초 맞춤 매칭</h3><p>성별·지역·고용·소득 4가지만 고르면 내 혜택만 골라줘요.</p></div>
+<div class="wres"><h3>② 마감·서류까지 챙김</h3><p>마감 임박 알림 + 서류 체크 + AI 자소서 초안까지 한 번에.</p></div>
+<div class="wres"><h3>③ 성공하면 돌려받음</h3><p>VIP 패스(월 24,900원) 신청 성공 시 구독료 50~100% 페이백.</p></div>
+<div class="wnav"><button class="wbtn pri" id="intro-go">내 혜택 찾으러 가기 →</button></div>
+<p class="wiz-foot">📍 정책캐치 · hello@policy-catch.kr · 평일 10:00–18:00<br>닫으면 맞춤 입력창이 이어서 열립니다.</p>
+</div>
+</div>
+</div>
+
 <!-- 첫방문 AI 비서 마법사 팝업 -->
 <div id="wiz" role="dialog" aria-modal="true" aria-label="정책캐치 첫방문 맞춤 입력">
 <div class="wiz-card">
@@ -244,7 +271,7 @@ body.dark .scholar-info{background:#141d33;color:#c6d2e6}
 <div class="wnav"><button class="wbtn pri" id="wiz-next1" disabled>필수 항목을 모두 선택해주세요</button></div>
 <p class="wiz-foot">📍 정책캐치 · hello@policy-catch.kr · 평일 10:00–18:00<br>입력값은 이 기기에서만 추천에 쓰이고 서버로 전송되지 않습니다.</p>
 </div>
-<script>(function(){var saved=null;try{saved=localStorage.getItem("catch_wiz_profile")}catch(e){saved=null}var w=document.getElementById("wiz");if(w&&!saved){w.classList.add("show");}var x=document.getElementById("wiz-x");if(x&&!x._bound){x._bound=1;x.onclick=function(){var ww=document.getElementById("wiz");if(ww)ww.classList.remove("show");};}var ww=document.getElementById("wiz");if(ww&&!ww._bound){ww._bound=1;ww.addEventListener("click",function(e){if(e.target===ww)ww.classList.remove("show");});}var fab=document.getElementById("ai-fab");if(fab&&!fab._bound){fab._bound=1;fab.onclick=function(){var w2=document.getElementById("wiz");if(w2)w2.classList.add("show");};}})();</script>
+<script>(function(){var saved=null;try{saved=localStorage.getItem("catch_wiz_profile")}catch(e){saved=null}var w=document.getElementById("wiz");var it=document.getElementById("intro");if(!saved&&it){it.classList.add("show");}var x=document.getElementById("wiz-x");if(x&&!x._bound){x._bound=1;x.onclick=function(){var ww=document.getElementById("wiz");if(ww)ww.classList.remove("show");};}var ww=document.getElementById("wiz");if(ww&&!ww._bound){ww._bound=1;ww.addEventListener("click",function(e){if(e.target===ww)ww.classList.remove("show");});}var fab=document.getElementById("ai-fab");if(fab&&!fab._bound){fab._bound=1;fab.onclick=function(){var w2=document.getElementById("wiz");if(w2)w2.classList.add("show");};}})();</script>
 <!-- 3단계: 큐레이션 + 추가 질문 -->
 <div class="wiz-step" id="ws3">
 <p style="font-size:13.5px;color:#33415c" id="wiz-sum"></p>
@@ -331,15 +358,15 @@ body.dark .scholar-info{background:#141d33;color:#c6d2e6}
 
 <div class="hero" id="home"><div class="hero-in">
 <div>
-<span class="badge">● 2,000만 원 린 스타트업 · 대전 2030 청년 MVP</span>
-<h1>월 2만 원대 패스 하나로<br><span>수백만 원 혜택을 캐치</span>하세요</h1>
-<p class="lead">10초 매칭으로 내 혜택만 골라드려요. 족보·AI 첨삭까지 한 번에.</p>
+<span class="badge">● 대전 청년 혜택 캐치 앱</span>
+<h1>놓치던 청년 혜택,<br><span>10초면 캐치</span>해드려요</h1>
+<p class="lead">월세·장학금·취업지원금 — 내 조건에 맞는 것만 골라줘요.</p>
 <div class="hero-btns">
 <a class="btn btn-pri" href="#pricing">패스·보상 보기</a>
 <a class="btn btn-acc" href="#match">내 혜택 1분 매칭 체험</a>
 <a class="btn btn-ghost" href="#policies">지원 가능한 공고 보기</a>
 </div>
-</div><div class="hero-card">
+</div><div class="hero-card" style="display:none">
 <img src="https://picsum.photos/seed/catch-youth/900/420" alt="청년 일상">
 <div class="hc">
 <b>오늘의 캐치 알림 예시</b>
@@ -623,7 +650,7 @@ function hideWiz(){wiz.classList.remove("show")}
 document.getElementById("wiz-x").onclick=hideWiz;
 fab.onclick=function(){showWiz();wizGo(1)};
 wiz.addEventListener("click",function(e){if(e.target===wiz)hideWiz()});
-try{if(!localStorage.getItem("catch_wiz_profile")){showWiz()}}catch(e){showWiz()}
+try{if(!localStorage.getItem("catch_wiz_profile")){var _it=document.getElementById("intro");if(_it&&!_it.classList.contains("show")){/* intro가 이미 처리 */}}}catch(e){}
 window.wizGo=function(n){
  var steps=document.querySelectorAll(".wiz-step");
  steps.forEach(function(el){el.classList.remove("on")});
@@ -871,5 +898,20 @@ if(back&&!back._bound){back._bound=1;back.onclick=function(){try{if(location.has
 }catch(e){}
 })();</script>
 <script>(function(){try{document.addEventListener("click",function(e){var a=e.target&&e.target.closest?e.target.closest('a[href^="#policy-"]'):null;if(!a)return;var w=document.getElementById("wiz"),q=document.getElementById("quick");if(q&&q.classList.contains("show")){try{sessionStorage.setItem("catch_return","quick")}catch(x){}}else if(w&&w.classList.contains("show")){try{sessionStorage.setItem("catch_return","wiz")}catch(x){}}},true);var back=document.getElementById("ov-back");if(back&&!back._fixed){back._fixed=1;back.onclick=function(){var ov=document.getElementById("overlay");if(ov)ov.style.display="none";var r="";try{r=sessionStorage.getItem("catch_return")||""}catch(x){}try{if(location.hash.indexOf("#policy-")===0){history.back();}else{if(ov)ov.style.display="none";}}catch(x){if(ov)ov.style.display="none";}setTimeout(function(){try{if(r==="quick"){var q=document.getElementById("quick");if(q){q.classList.add("show");var s1=document.getElementById("qs1"),s2=document.getElementById("qs2");if(s1)s1.classList.remove("on");if(s2)s2.classList.add("on");}}else if(r==="wiz"){var w=document.getElementById("wiz");if(w){w.classList.add("show");if(window.wizGo)wizGo(3);}}}catch(x){}} ,80);};}}catch(e){}})();</script>
+<script>
+/* 인트로 -> 기존 팝업 순서: 인트로를 닫으면 저장값 없을 때만 #wiz 표시 */
+(function(){
+var it=document.getElementById("intro");
+function openWizAfter(){
+  var saved=null;try{saved=localStorage.getItem("catch_wiz_profile")}catch(e){saved=null}
+  if(it)it.classList.remove("show");
+  if(!saved){var w=document.getElementById("wiz");if(w)w.classList.add("show");}
+}
+var x=document.getElementById("intro-x");if(x)x.onclick=openWizAfter;
+var g=document.getElementById("intro-go");if(g)g.onclick=openWizAfter;
+if(it)it.addEventListener("click",function(e){if(e.target===it)openWizAfter();});
+})();
+</script>
+
 <!--ethos-badge--><div style="text-align:center;padding:16px 8px 20px;font:12px/1.6 -apple-system,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;color:#9aa1a9">이 페이지는 <a href="https://ethos.ai.kr" target="_blank" rel="noopener" style="color:#8a919b;text-decoration:underline">에토스AI 코드</a>로 만들어졌습니다</div>
 </body></html>
