@@ -121,7 +121,7 @@ table.lean th{background:#f4f7ff}
 
 /* 인트로 팝업(네 번째 사진 스타일과 동일) */
 #intro{position:fixed;inset:0;z-index:300;display:none;align-items:center;justify-content:center;background:rgba(15,25,45,.55);padding:16px}
-#intro.show{display:flex}
+#intro.show{display:flex!important}
 .intro-slidebox{overflow:hidden;border-radius:12px}
 .intro-track{display:flex;transition:transform .45s ease}
 .intro-slide{flex:0 0 100%;box-sizing:border-box;padding:2px}
@@ -292,7 +292,7 @@ body.dark .scholar-info{background:#141d33;color:#c6d2e6}
 <div class="wnav"><button class="wbtn pri" id="wiz-next1" disabled>필수 항목을 모두 선택해주세요</button></div>
 <p class="wiz-foot">📍 정책캐치 · hello@policy-catch.kr · 평일 10:00–18:00<br>입력값은 이 기기에서만 추천에 쓰이고 서버로 전송되지 않습니다.</p>
 </div>
-<script>(function(){var saved=null,hide=null;try{saved=localStorage.getItem("catch_wiz_profile")}catch(e){saved=null}try{hide=localStorage.getItem("catch_intro_hide")}catch(e){hide=null}var today=new Date();var tstr=today.getFullYear()+"-"+("0"+(today.getMonth()+1)).slice(-2)+"-"+("0"+today.getDate()).slice(-2);var w=document.getElementById("wiz");var it=document.getElementById("intro");if(it&&hide!==tstr){it.classList.add("show");}var x=document.getElementById("wiz-x");if(x&&!x._bound){x._bound=1;x.onclick=function(){var ww=document.getElementById("wiz");if(ww)ww.classList.remove("show");};}var ww=document.getElementById("wiz");if(ww&&!ww._bound){ww._bound=1;ww.addEventListener("click",function(e){if(e.target===ww)ww.classList.remove("show");});}var fab=document.getElementById("ai-fab");if(fab&&!fab._bound){fab._bound=1;fab.onclick=function(){var w2=document.getElementById("wiz");if(w2)w2.classList.add("show");};}})();</script>
+<script>(function(){var saved=null,hide=null;try{saved=localStorage.getItem("catch_wiz_profile")}catch(e){saved=null}try{hide=localStorage.getItem("catch_intro_hide")}catch(e){hide=null}var today=new Date();var tstr=today.getFullYear()+"-"+("0"+(today.getMonth()+1)).slice(-2)+"-"+("0"+today.getDate()).slice(-2);var w=document.getElementById("wiz");var it=document.getElementById("intro");function showIntroNow(){var el=document.getElementById("intro");if(!el)return;var h=null;try{h=localStorage.getItem("catch_intro_hide")}catch(e){h=null}var t=new Date();var ts=t.getFullYear()+"-"+("0"+(t.getMonth()+1)).slice(-2)+"-"+("0"+t.getDate()).slice(-2);if(h===ts)return;el.classList.add("show");}try{if(location.search.indexOf("reset")>=0||location.search.indexOf("test")>=0){try{localStorage.removeItem("catch_intro_hide");localStorage.removeItem("catch_wiz_profile")}catch(e){}hide=null;}}catch(e){}if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",function(){showIntroNow();setTimeout(showIntroNow,400);});}else{showIntroNow();}setTimeout(showIntroNow,800);var x=document.getElementById("wiz-x");if(x&&!x._bound){x._bound=1;x.onclick=function(){var ww=document.getElementById("wiz");if(ww)ww.classList.remove("show");};}var ww=document.getElementById("wiz");if(ww&&!ww._bound){ww._bound=1;ww.addEventListener("click",function(e){if(e.target===ww)ww.classList.remove("show");});}var fab=document.getElementById("ai-fab");if(fab&&!fab._bound){fab._bound=1;fab.onclick=function(){var w2=document.getElementById("wiz");if(w2)w2.classList.add("show");};}})();</script>
 <!-- 3단계: 큐레이션 + 추가 질문 -->
 <div class="wiz-step" id="ws3">
 <p style="font-size:13.5px;color:#33415c" id="wiz-sum"></p>
@@ -953,7 +953,7 @@ var g=document.getElementById("intro-go");if(g)g.onclick=openWizAfter;
 var c=document.getElementById("intro-close");if(c)c.onclick=openWizAfter;
 var td=document.getElementById("intro-today");if(td)td.onclick=todayHide;
 if(it)it.addEventListener("click",function(e){if(e.target===it)openWizAfter();});
-go(0);auto();
+go(0);auto();try{var _el=document.getElementById("intro");var _h=null;try{_h=localStorage.getItem("catch_intro_hide")}catch(e){}var _t=new Date();var _ts=_t.getFullYear()+"-"+("0"+(_t.getMonth()+1)).slice(-2)+"-"+("0"+_t.getDate()).slice(-2);if(_el&&_h!==_ts){_el.classList.add("show");}}catch(e){}
 })();
 </script>
 
