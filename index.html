@@ -119,6 +119,23 @@ table.lean th{background:#f4f7ff}
 .pill.hot{background:#eaf0fd;color:var(--pri)}
 
 
+/* 족보·멘토 상세 + 리뷰 */
+.dt-hero{display:flex;gap:12px;align-items:flex-start;margin-bottom:10px}
+.dt-hero img{width:112px;height:84px;object-fit:cover;border-radius:12px;flex:none}
+.dt-title{font-size:17px;font-weight:900;line-height:1.35}
+.dt-sub{font-size:13px;color:#5b6b82;margin-top:4px}
+.star-link{cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.rv{border:1px solid var(--line);border-radius:12px;padding:12px;margin-top:8px;background:#fbfcff}
+.rv .rn{font-weight:900;font-size:13.5px}
+.rv .rs{color:#f5a623;font-weight:900;font-size:13px;margin-left:6px}
+.rv .rd{font-size:12px;color:var(--mut);margin-left:6px}
+.rv p{font-size:13.5px;margin-top:6px;color:#2b3a52}
+.rv-form{border:1px dashed #b9cdf5;border-radius:12px;padding:12px;margin-top:10px;background:#fff}
+.rv-form .srow{display:flex;gap:6px;margin:8px 0}
+.rv-form .srow button{border:1px solid var(--line);background:#fff;border-radius:9px;font-size:18px;width:42px;height:42px;cursor:pointer;color:#c6cfdd}
+.rv-form .srow button.on{color:#f5a623;border-color:#f5a623;background:#fff8e8}
+.rv-form textarea{width:100%;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:14px;min-height:74px}
+.mk,.mcard{cursor:pointer}
 /* 인트로 팝업(네 번째 사진 스타일과 동일) */
 #intro{position:fixed;inset:0;z-index:300;display:none;align-items:center;justify-content:center;background:rgba(15,25,45,.55);padding:16px}
 #intro.show{display:flex!important}
@@ -689,12 +706,12 @@ var POLICIES=[
 {id:16,cat:"교육",title:"K-디지털 기초역량훈련 (내일배움카드 + 장려금)",org:"고용노동부·HRD",amt:"훈련비 전액 + 월 11.6만원",due:"상시",dday:"상시모집",cond:"구직·재직 청년",tags:["교육","디지털","훈련"],min:0,max:1000,desc:"코딩·데이터 기초를 무료로 배우고 훈련장려금까지 받는 내일배움카드 훈련.",docs:["내일배움카드","참여신청서","신분증"],link:"https://www.hrd.go.kr"},
 {id:9,cat:"취업",title:"청년 인턴십·일경험 지원 (수당 + 멘토링)" ,org:"고용노동부",amt:"월 150만원 내외",due:"2026-10-17",dday:"D-30",cond:"미취업 청년 · 주 25시간 이상",tags:["취업","인턴","경험"],min:0,max:400,desc:"기업 현장경험과 직무교육을 함께 제공. 수료 후 정규직 전환 사례 다수.",docs:["참여신청서","졸업증명","자기소개서"],link:"https://www.work.go.kr"}];
 var MENTORS=[
-{img:"https://picsum.photos/seed/mentor-a/600/300",name:"김○현 · LH 전세임대 합격",star:"★★★★★ 4.9",bio:"자취 2년차 · 서류 1회 통과. 가점 항목·우선순위 고르는 법 족보 보유.",tip:"임대 가능 주택 리스트업 순서가 핵심"},
-{img:"https://picsum.photos/seed/mentor-b/600/300",name:"박○민 · 창업지원금 수혜",star:"★★★★★ 4.8",bio:"사업계획서 3번 탈락 후 합격. 심사위원 질문 20선 정리.",tip:"수익모델 한 장 요약이 당락을 가름"},
-{img:"https://picsum.photos/seed/mentor-c/600/300",name:"이○서 · 월세지원 통과",star:"★★★★☆ 4.7",bio:"계약서 특약 문구 때문에 반려될 뻔한 경험 공유.",tip:"확정일자·전입신고 순서 주의"},
-{img:"https://picsum.photos/seed/mentor-d/600/300",name:"최○준 · 국취제 수당 6개월",star:"★★★★★ 4.9",bio:"구직활동 인정받는 활동일지 쓰는 법 전수.",tip:"활동계획서 첫 문장이 중요"},
-{img:"https://picsum.photos/seed/mentor-e/600/300",name:"정○아 · 도약계좌 2년 유지",star:"★★★★☆ 4.6",bio:"중도해지 없이 유지하는 자동이체·비상금 룰 공유.",tip:"급여일 다음날 자동이체 고정"},
-{img:"https://picsum.photos/seed/mentor-f/600/300",name:"한○우 · 인턴→정규직 전환",star:"★★★★★ 4.8",bio:"자소서·면접 1:1 첨삭. 직무경험 STAR 정리법 제공.",tip:"경험은 수치로 바꿔 쓰기"}];
+{img:"https://picsum.photos/seed/mentor-a/600/300",name:"김○현 · LH 전세임대 합격",field:"주거 · 전세임대",rate:4.9,star:"★★★★★ 4.9",buyers:212,bio:"자취 2년차 · 서류 1회 통과. 가점 항목·우선순위 고르는 법 족보 보유.",tip:"임대 가능 주택 리스트업 순서가 핵심",career:"LH 전세임대 합격(2025) · 행복주택 서류통과 2회 · 누적 상담 200건+",programs:["1:1 매칭 30분 — 가점 진단 + 주택 리스트업 순서","족보 PDF — 우선순위·가점 계산표 v3"],revs:[{n:"대전 자취생",s:5,d:"2026.08.21",t:"가점 계산표대로 순위 매기니 헷갈리던 우선순위가 바로 정리됐어요. 주택 고르는 순서 팁이 제일 도움됐습니다."},{n:"사회초년생",s:5,d:"2026.08.02",t:"서류 1회 통과 비결이 진짜 실전형이에요. 등본·계약서 체크 포인트를 짚어주셔서 반려 없이 끝났습니다."},{n:"취준생",s:4,d:"2026.07.15",t:"상담이 친절해요. 별 1개 뺀 이유는 인기 시간대 예약이 빨리 차서예요. 내용은 만족합니다."}]},
+{img:"https://picsum.photos/seed/mentor-b/600/300",name:"박○민 · 창업지원금 수혜",field:"창업 · 사업계획서",rate:4.8,star:"★★★★★ 4.8",buyers:168,bio:"사업계획서 3번 탈락 후 합격. 심사위원 질문 20선 정리.",tip:"수익모델 한 장 요약이 당락을 가름",career:"예비창업패키지 선정(2025) · 멘토링 150건+",programs:["1:1 매칭 40분 — 사업계획서·수익모델 첨삭","족보 PDF — 심사위원 질문 20선 + 한 장 요약장"],revs:[{n:"예비창업자",s:5,d:"2026.08.28",t:"탈락 3번 원인이 수익모델 한 장에서 바로 보이더라고요. 질문 20선으로 모의답변 준비했더니 통과했습니다."},{n:"대학생 창업팀",s:5,d:"2026.08.10",t:"계획서 문장이 심사위원 눈높이로 바뀌었어요. 요약장 양식이 그대로 먹혔습니다."},{n:"직장인 부업",s:4,d:"2026.07.20",t:"피드백이 날카롭지만 정확해요. 분량 조절만 조금 아쉬웠어요."}]},
+{img:"https://picsum.photos/seed/mentor-c/600/300",name:"이○서 · 월세지원 통과",field:"주거 · 월세지원",rate:4.7,star:"★★★★☆ 4.7",buyers:305,bio:"계약서 특약 문구 때문에 반려될 뻔한 경험 공유.",tip:"확정일자·전입신고 순서 주의",career:"대전 월세지원 선정(2025) · 계약서 특약 상담 300건+",programs:["1:1 매칭 30분 — 계약서 특약·확정일자 점검","족보 PDF — 특약 함정 회피집"],revs:[{n:"자취 1년차",s:5,d:"2026.08.18",t:"특약 문구 하나 때문에 반려될 뻔했는데 미리 잡아주셨어요. 확정일자 순서 정리가 최고였습니다."},{n:"신혼부부",s:5,d:"2026.07.30",t:"전입신고 타이밍을 정확히 알려줘서 서류가 한 번에 통과됐어요."},{n:"알바생",s:4,d:"2026.07.08",t:"내용은 좋은데 상담 시간이 조금 짧게 느껴졌어요. 족보집은 잘 보고 있습니다."}]},
+{img:"https://picsum.photos/seed/mentor-d/600/300",name:"최○준 · 국취제 수당 6개월",field:"일자리 · 국취제",rate:4.9,star:"★★★★★ 4.9",buyers:190,bio:"구직활동 인정받는 활동일지 쓰는 법 전수.",tip:"활동계획서 첫 문장이 중요",career:"국민취업지원제도 6개월 수료 · 활동일지 첨삭 250건+",programs:["1:1 매칭 30분 — 활동계획서·일지 첨삭","족보 PDF — 인정 템플릿 30일치"],revs:[{n:"구직 3개월차",s:5,d:"2026.08.25",t:"활동일지가 매번 반려됐는데 템플릿대로 쓰니 바로 인정됐어요. 첫 문장 공식이 신기합니다."},{n:"졸업예정자",s:5,d:"2026.08.05",t:"계획서 첨삭이 빠르고 정확해요. 수당 끊기지 않고 6개월 채울 수 있었습니다."},{n:"재도전생",s:5,d:"2026.07.12",t:"상담 후 구직활동 방향이 잡혔어요. 일지 예시가 풍부해서 따라 쓰기 좋습니다."}]},
+{img:"https://picsum.photos/seed/mentor-e/600/300",name:"정○아 · 도약계좌 2년 유지",field:"금융 · 목돈마련",rate:4.6,star:"★★★★☆ 4.6",buyers:141,bio:"중도해지 없이 유지하는 자동이체·비상금 룰 공유.",tip:"급여일 다음날 자동이체 고정",career:"청년도약계좌 2년 유지 중 · 가계부 코칭 120건+",programs:["1:1 매칭 30분 — 저축액·자동이체 설계","족보 PDF — 유지 룰 + 비상금 통장법"],revs:[{n:"월급 230만원",s:5,d:"2026.08.12",t:"자동이체 날짜만 바꿨는데 중도해지 유혹이 사라졌어요. 비상금 룰이 현실적입니다."},{n:"사회초년생",s:4,d:"2026.07.28",t:"저축액별 시뮬레이션이 도움됐어요. 앱 연동 얘기가 조금 더 있었으면 좋겠어요."},{n:"대학생",s:5,d:"2026.07.05",t:"용돈 수준에서도 따라 할 수 있게 쪼개줘서 꾸준히 모으고 있습니다."}]},
+{img:"https://picsum.photos/seed/mentor-f/600/300",name:"한○우 · 인턴→정규직 전환",field:"일자리 · 인턴·자소서",rate:4.8,star:"★★★★★ 4.8",buyers:177,bio:"자소서·면접 1:1 첨삭. 직무경험 STAR 정리법 제공.",tip:"경험은 수치로 바꿔 쓰기",career:"청년인턴→정규직 전환(2024) · 자소서 첨삭 300건+",programs:["1:1 매칭 40분 — STAR 자소서·면접 첨삭","족보 PDF — STAR 변환집 + 면접 질문 15선"],revs:[{n:"인턴 지원자",s:5,d:"2026.08.22",t:"경험을 숫자로 바꾸는 법을 배우고 서류 합격률이 확 올랐어요. 면접 질문집도 적중했습니다."},{n:"취준 6개월",s:5,d:"2026.08.01",t:"첨삭이 구체적이에요. 두괄식 문장 교정만으로도 자소서가 달라졌습니다."},{n:"대졸 신입",s:4,d:"2026.07.18",t:"전반적으로 만족해요. 첨삭량이 많아서 소화하는 데 시간이 좀 걸렸어요."}]}];
 function toast(m){var t=document.getElementById("toast");t.textContent=m;t.style.display="block";clearTimeout(t._h);t._h=setTimeout(function(){t.style.display="none"},2600)}
 function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;")}
 var curCat="전체";
@@ -711,15 +728,76 @@ function renderPolicies(){
 }
 document.getElementById("p-filter").querySelectorAll(".chip").forEach(function(c){c.onclick=function(){document.querySelectorAll("#p-filter .chip").forEach(function(x){x.classList.remove("on")});c.classList.add("on");curCat=c.dataset.c;renderPolicies()}});
 document.getElementById("p-search").oninput=renderPolicies;
+function starHTML(rate){var f=Math.round(rate);var s="";for(var k=1;k<=5;k++){s+=(k<=f?"★":"☆")}return s+" "+rate.toFixed(1)}
 function renderMentors(){
  var g=document.getElementById("mgrid");g.innerHTML="";
  MENTORS.forEach(function(m,i){
   var d=document.createElement("div");d.className="mcard";
-  d.innerHTML="<img src='"+m.img+"' alt='멘토' loading='lazy'><div class='mb'><b>"+m.name+"</b><div class='stars'>"+m.star+"</div><p class='pmeta' style='margin:6px 0'>"+m.bio+"<br>대표 팁: <b style='color:var(--pri)'>"+m.tip+"</b></p><div style='display:flex;gap:8px'><button class='btn btn-pri' style='flex:1;padding:10px' data-m='"+i+"'>1:1 매칭 신청</button><a class='btn btn-ghost' style='padding:10px 14px' href='#docs'>족보 보기</a></div></div>";
+  d.innerHTML="<a href='#mentor-"+i+"' style='display:block;color:inherit;text-decoration:none'><img src='"+m.img+"' alt='멘토' loading='lazy'><div class='mb'><b>"+m.name+"</b><div class='stars'><a class='star-link stars' href='#mentor-"+i+"-rv' style='color:#f5a623'>"+m.star+"</a><span class='pmeta'> · "+m.buyers+"명 상담</span></div><p class='pmeta' style='margin:6px 0'>"+m.bio+"<br>대표 팁: <b style='color:var(--pri)'>"+m.tip+"</b></p></div></a><div style='display:flex;gap:8px;padding:0 14px 14px'><button class='btn btn-pri' style='flex:1;padding:10px' data-m='"+i+"'>1:1 매칭 신청</button><a class='btn btn-ghost' style='padding:10px 14px' href='#mentor-"+i+"'>프로필 보기</a></div>";
   g.appendChild(d);
  });
- g.querySelectorAll("[data-m]").forEach(function(b){b.onclick=function(){var m=MENTORS[+b.dataset.m];var n="catch_mentor";var a=JSON.parse(localStorage.getItem(n)||"[]");var no="MT-"+Math.floor(1000+Math.random()*9000);a.push({no:no,mentor:m.name,at:new Date().toLocaleString()});localStorage.setItem(n,JSON.stringify(a));toast("매칭 신청 완료 · 접수번호 "+no+" (내 접수함은 문의 섹션에서 확인)")}});
+ g.querySelectorAll("[data-m]").forEach(function(b){b.onclick=function(e){e.stopPropagation();var m=MENTORS[+b.dataset.m];var n="catch_mentor";var a=JSON.parse(localStorage.getItem(n)||"[]");var no="MT-"+Math.floor(1000+Math.random()*9000);a.push({no:no,mentor:m.name,at:new Date().toLocaleString()});localStorage.setItem(n,JSON.stringify(a));toast("매칭 신청 완료 · 접수번호 "+no+" (내 접수함은 문의 섹션에서 확인)")}});
 }
+function rvKey(kind,idx){return "catch_rv_"+kind+"_"+idx}
+function getRevs(kind,idx,base){try{var a=JSON.parse(localStorage.getItem(rvKey(kind,idx))||"[]");return base.concat(a)}catch(e){return base}}
+function rvHTML(kind,idx,base){
+ var arr=getRevs(kind,idx,base||[]);
+ var h="<div id='rv-list'>";
+ arr.forEach(function(r){h+="<div class='rv'><span class='rn'>"+esc(r.n)+"</span><span class='rs'>"+("★★★★★".slice(0,r.s)+"☆☆☆☆☆".slice(0,5-r.s))+" "+r.s+".0</span><span class='rd'>"+esc(r.d)+"</span><p>"+esc(r.t)+"</p></div>"});
+ h+="</div>";
+ h+="<div class='rv-form'><b>리뷰 작성하기</b><div class='pmeta'>사용해본 분만 작성해주세요. 이 기기에 저장됩니다.</div><div class='srow' id='rv-stars-"+kind+"-"+idx+"'>"+[1,2,3,4,5].map(function(n){return "<button data-s='"+n+"'>★</button>"}).join("")+"</div><textarea id='rv-text-"+kind+"-"+idx+"' placeholder='예) 실제로 써보니 어디가 도움됐나요?'></textarea><button class='btn btn-pri' style='width:100%;margin-top:8px' onclick='submitRv(\""+kind+"\",\""+idx+"\")'>리뷰 등록하기</button></div>";
+ return h;
+}
+var _rvScore=0;
+document.addEventListener("click",function(e){
+ var b=e.target&&e.target.closest?e.target.closest(".rv-form .srow button"):null;
+ if(!b)return;
+ var row=b.parentNode;_rvScore=+b.dataset.s;
+ row.querySelectorAll("button").forEach(function(x){x.classList.toggle("on",+x.dataset.s<=_rvScore)});
+});
+function submitRv(kind,idx){
+ var ta=document.getElementById("rv-text-"+kind+"-"+idx);
+ var v=(ta.value||"").trim();
+ if(!_rvScore){toast("별점을 먼저 눌러주세요 (1~5점)");return}
+ if(v.length<4){toast("리뷰를 4글자 이상 적어주세요");return}
+ var k=rvKey(kind,idx);var a=[];try{a=JSON.parse(localStorage.getItem(k)||"[]")}catch(e){}
+ a.push({n:"나의 리뷰",s:_rvScore,d:new Date().toLocaleDateString("ko-KR"),t:v});
+ try{localStorage.setItem(k,JSON.stringify(a))}catch(e){}
+ _rvScore=0;toast("리뷰가 등록됐어요. 감사합니다!");
+ if(kind==="mentor")openMentor(idx,true);else openJokbo(idx,true);
+}
+function openMentor(i,keep){
+ var m=MENTORS[i];if(!m)return;
+ document.getElementById("ov-t").textContent=m.name;
+ var h="<div class='ptag' style='margin-bottom:8px'><span>"+esc(m.field)+"</span><span>"+esc(m.star)+"</span><span>"+m.buyers+"명 상담</span></div>";
+ h+="<div class='dt-hero'><img src='"+m.img+"' alt='멘토'><div><div class='dt-title'>"+esc(m.name)+"</div><div class='dt-sub'>"+esc(m.career)+"</div><div class='stars' style='margin-top:4px'>"+starHTML(m.rate)+" · "+m.buyers+"명 상담</div></div></div>";
+ h+="<p>"+esc(m.bio)+"</p><p class='pmeta' style='margin:6px 0'>대표 팁: <b style='color:var(--pri)'>"+esc(m.tip)+"</b></p>";
+ h+="<b>이런 걸 도와줘요</b><ul style='margin:6px 0 10px 18px'><li>"+m.programs.join("</li><li>")+"</li></ul>";
+ h+="<div style='display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px'><button class='btn btn-pri' onclick='bookMentor("+i+")'>1:1 매칭 신청하기</button><a class='btn btn-ghost' href='#market'>족보 보러 가기</a></div>";
+ h+="<b id='mentor-rv'>상담 후기 · 별점 리뷰</b><p class='pmeta'>별점을 누르면 사용했던 분의 리뷰가 보여요. 직접 작성도 가능해요.</p>";
+ h+=rvHTML("mentor",i,m.revs);
+ document.getElementById("ov-b").innerHTML=h;
+ var _ov=document.getElementById("overlay");_ov.style.display="block";_ov.scrollTop=0;var _sh=_ov.querySelector(".sheet");if(_sh)_sh.scrollTop=0;try{document.body.style.overflow="hidden"}catch(e){}
+ if(!keep){try{if((location.hash||"")!=="#mentor-"+i)history.replaceState(null,"","#mentor-"+i)}catch(e){try{location.hash="mentor-"+i}catch(e2){}}}
+}
+function bookMentor(i){var m=MENTORS[i];var n="catch_mentor";var a=[];try{a=JSON.parse(localStorage.getItem(n)||"[]")}catch(e){}var no="MT-"+Math.floor(1000+Math.random()*9000);a.push({no:no,mentor:m.name,at:new Date().toLocaleString()});try{localStorage.setItem(n,JSON.stringify(a))}catch(e){}toast("매칭 신청 완료 · 접수번호 "+no+" (내 접수함은 문의 섹션에서 확인)")}
+function openJokbo(i,keep){
+ var j=JOKBO[i];if(!j)return;
+ document.getElementById("ov-t").textContent=j.t;
+ var h="<div class='ptag' style='margin-bottom:8px'><span>"+esc(j.m)+" 멘토</span><span>"+esc(j.rt)+"</span><span>"+j.buyers+"명 구매</span></div>";
+ h+="<div class='dt-title'>"+esc(j.t)+"</div><div class='stars' style='margin:6px 0'>"+starHTML(j.rate)+" · <a class='star-link' href='#jokbo-"+i+"-rv' style='color:#f5a623'>리뷰 "+(j.revs.length)+"개 보기</a></div>";
+ h+="<p style='margin:8px 0'>"+esc(j.desc)+"</p>";
+ h+="<b>이 족보에 들어있어요</b><ul style='margin:6px 0 10px 18px'><li>"+j.inc.join("</li><li>")+"</li></ul>";
+ h+="<div class='amt2' style='font-size:20px;font-weight:900;color:var(--pri);margin:8px 0'>"+j.pr.toLocaleString()+"원</div>";
+ h+="<div style='display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px'><button class='btn btn-pri' onclick='buyJokbo("+i+")'>구매하기</button><a class='btn btn-ghost' href='sms:042-123-4567'>문자로 질문하기</a></div>";
+ h+="<b id='jokbo-rv'>구매자 별점 리뷰</b><p class='pmeta'>별점을 누르면 사용했던 분의 리뷰가 보여요.</p>";
+ h+=rvHTML("jokbo",i,j.revs);
+ document.getElementById("ov-b").innerHTML=h;
+ var _ov=document.getElementById("overlay");_ov.style.display="block";_ov.scrollTop=0;var _sh=_ov.querySelector(".sheet");if(_sh)_sh.scrollTop=0;try{document.body.style.overflow="hidden"}catch(e){}
+ if(!keep){try{if((location.hash||"")!=="#jokbo-"+i)history.replaceState(null,"","#jokbo-"+i)}catch(e){try{location.hash="jokbo-"+i}catch(e2){}}}
+}
+function buyJokbo(i){var j=JOKBO[i];var k="catch_buy";var a=[];try{a=JSON.parse(localStorage.getItem(k)||"[]")}catch(e){}var no="JB-"+Math.floor(1000+Math.random()*9000);a.push({no:no,item:j.t,at:new Date().toLocaleString()});try{localStorage.setItem(k,JSON.stringify(a))}catch(e){}toast("구매 접수 "+no+" · "+j.t+" (정식결제는 출시 후 연동)")}
+
 document.getElementById("f-tags").querySelectorAll(".chip").forEach(function(c){c.onclick=function(e){e.preventDefault();c.classList.toggle("on")}});
 document.getElementById("btn-match").onclick=function(){
  var inc=+document.getElementById("f-income").value||0;
@@ -740,15 +818,15 @@ document.getElementById("btn-draft").onclick=function(){
  document.getElementById("d-out").value=out;toast("초안이 만들어졌어요. 복사해 제출서에 붙여넣으세요.");
 };
 var JOKBO=[
-{t:"LH 전세임대 가점·우선순위 족보 v3",m:"김○현",pr:14900,rt:"★★★★★ 4.9 · 212명 구매"},
-{t:"창업지원금 심사위원 질문 20선 + 요약장",m:"박○민",pr:19900,rt:"★★★★★ 4.8 · 168명 구매"},
-{t:"월세지원 계약서 특약 함정 회피집",m:"이○서",pr:9900,rt:"★★★★☆ 4.7 · 305명 구매"},
-{t:"국취제 활동일지 인정 템플릿 30일치",m:"최○준",pr:9900,rt:"★★★★★ 4.9 · 190명 구매"},
-{t:"청년도약계좌 유지 자동이체·비상금 룰",m:"정○아",pr:9900,rt:"★★★★☆ 4.6 · 141명 구매"},
-{t:"인턴→정규직 STAR 자소서 변환집",m:"한○우",pr:14900,rt:"★★★★★ 4.8 · 177명 구매"},
-{t:"행복주택 서류 3분 체크리스트 모음",m:"김○현",pr:9900,rt:"★★★★☆ 4.7 · 263명 구매"},
-{t:"사업계획서 수익모델 한 장 요약법",m:"박○민",pr:14900,rt:"★★★★★ 4.9 · 156명 구매"}];
-(function(){var g=document.getElementById("mkt-grid");if(!g)return;g.innerHTML="";JOKBO.forEach(function(j){var d=document.createElement("div");d.className="mk";var b=document.createElement("b");b.style.fontSize="14px";b.textContent=j.t;var m1=document.createElement("div");m1.className="pmeta";m1.textContent=j.m+" 멘토 · "+j.rt;var pr=document.createElement("div");pr.className="amt2";pr.textContent=j.pr.toLocaleString()+"원";var btn=document.createElement("button");btn.className="chip";btn.style.marginTop="4px";btn.textContent="구매하기";btn.onclick=function(){var k="catch_buy";var a=JSON.parse(localStorage.getItem(k)||"[]");var no="JB-"+Math.floor(1000+Math.random()*9000);a.push({no:no,item:j.t,at:new Date().toLocaleString()});localStorage.setItem(k,JSON.stringify(a));toast("구매 접수 "+no+" · "+j.t+" (정식결제는 출시 후 연동)")};d.appendChild(b);d.appendChild(m1);d.appendChild(pr);d.appendChild(btn);g.appendChild(d)})})();
+{t:"LH 전세임대 가점·우선순위 족보 v3",m:"김○현",pr:14900,rt:"★★★★★ 4.9 · 212명 구매",rate:4.9,buyers:212,desc:"가점 항목별 점수 계산표 + 우선순위 판정 흐름도 + 주택 리스트업 순서 체크리스트가 들어간 실전 PDF예요.",inc:["가점 계산표 v3 (엑셀 포함)","우선순위 판정 흐름도 1장","주택 리스트업 순서 체크리스트","반려 사례 12선"],revs:[{n:"구매자 212번째",s:5,d:"2026.08.20",t:"계산표에 점수만 넣으니 내 순위가 바로 보여서 지원 타이밍을 잡기 좋았어요."},{n:"신규 전입자",s:5,d:"2026.08.03",t:"리스트업 순서대로 보니까 허탕치는 집이 줄었어요. 실전형입니다."},{n:"재도전자",s:4,d:"2026.07.11",t:"내용은 알찬데 분량이 조금 많아요. 요약 1장이 있어서 다행이었습니다."}]},
+{t:"창업지원금 심사위원 질문 20선 + 요약장",m:"박○민",pr:19900,rt:"★★★★★ 4.8 · 168명 구매",rate:4.8,buyers:168,desc:"3번 탈락 후 합격한 멘토가 정리한 심사위원 단골 질문 20선과 수익모델 한 장 요약 양식 세트예요.",inc:["질문 20선 + 모범답변 예시","수익모델 한 장 요약 양식","탈락→합격 전후 비교본"],revs:[{n:"예비창업팀",s:5,d:"2026.08.27",t:"질문 20선 중 4개가 실제 심사에서 그대로 나왔어요. 요약장 양식이 합격 포인트였습니다."},{n:"1인 창업자",s:5,d:"2026.08.09",t:"모범답변 톤을 따라 쓰니 답변이 깔끔해졌어요."},{n:"대학생",s:4,d:"2026.07.19",t:"좋은데 가격이 조금 세게 느껴져요. 내용은 값어치 합니다."}]},
+{t:"월세지원 계약서 특약 함정 회피집",m:"이○서",pr:9900,rt:"★★★★☆ 4.7 · 305명 구매",rate:4.7,buyers:305,desc:"반려 1순위인 계약서 특약 문구 함정 8가지와 확정일자·전입신고 올바른 순서 가이드예요.",inc:["특약 함정 8선 + 대체 문구","확정일자·전입신고 순서표","제출 전 3분 체크리스트"],revs:[{n:"자취생",s:5,d:"2026.08.17",t:"특약 문구 하나 고쳐서 반려를 피했어요. 체크리스트 3분 컷이 진짜입니다."},{n:"월세 입居자",s:5,d:"2026.07.29",t:"확정일자 순서가 헷갈렸는데 표 하나로 해결됐어요."},{n:"첫 자취",s:4,d:"2026.07.07",t:"사례 사진이 더 많았으면 좋겠어요. 설명은 쉽습니다."}]},
+{t:"국취제 활동일지 인정 템플릿 30일치",m:"최○준",pr:9900,rt:"★★★★★ 4.9 · 190명 구매",rate:4.9,buyers:190,desc:"인정 잘 받는 활동일지 문장 패턴 30일치와 활동계획서 첫 문장 공식이 담긴 템플릿집이에요.",inc:["30일치 일지 템플릿","계획서 첫 문장 공식 5종","반려 문장 교정 예시 20개"],revs:[{n:"구직자",s:5,d:"2026.08.24",t:"복붙이 아니라 내 활동에 맞게 바꾸는 법까지 있어서 인정률이 올랐어요."},{n:"수당 수급자",s:5,d:"2026.08.04",t:"계획서 첫 문장 바꾸고 담당자 피드백이 달라졌습니다."},{n:"졸업생",s:5,d:"2026.07.13",t:"30일치가 넉넉해서 6개월 내내 돌려썼어요."}]},
+{t:"청년도약계좌 유지 자동이체·비상금 룰",m:"정○아",pr:9900,rt:"★★★★☆ 4.6 · 141명 구매",rate:4.6,buyers:141,desc:"중도해지 없이 5년을 버티는 자동이체 날짜 공식과 비상금 통장 쪼개기 룰북이에요.",inc:["자동이체 날짜 공식표","비상금 통장 쪼개기 시트","월급별 납입 시뮬레이션"],revs:[{n:"직장 1년차",s:5,d:"2026.08.11",t:"급여일 다음날 이체로 바꾸니 손댈 틈이 없어서 유지가 쉬워졌어요."},{n:"저축 초보",s:4,d:"2026.07.27",t:"시뮬레이션 시트가 유용해요. 카드값 관리 팁이 추가되면 좋겠어요."},{n:"대학생",s:5,d:"2026.07.04",t:"소액부터 시작하는 단계표가 있어서 부담 없이 시작했습니다."}]},
+{t:"인턴→정규직 STAR 자소서 변환집",m:"한○우",pr:14900,rt:"★★★★★ 4.8 · 177명 구매",rate:4.8,buyers:177,desc:"평범한 경험을 수치 성과로 바꾸는 STAR 변환 공식과 면접 질문 15선 답변 예시집이에요.",inc:["STAR 변환 공식 + 예시 30개","면접 질문 15선 답변 예시","자소서 두괄식 교정본 예시"],revs:[{n:"인턴 합격자",s:5,d:"2026.08.21",t:"동아리 경험을 수치로 바꾸니 자소서가 살아났어요. 면접에서도 그대로 썼습니다."},{n:"취준생",s:5,d:"2026.07.31",t:"예시가 많아서 내 경험에 대입하기 쉬웠어요."},{n:"신입 지원",s:4,d:"2026.07.16",t:"분량이 많아서 다 읽는 데 이틀 걸렸어요. 핵심 요약이 있어 다행입니다."}]},
+{t:"행복주택 서류 3분 체크리스트 모음",m:"김○현",pr:9900,rt:"★★★★☆ 4.7 · 263명 구매",rate:4.7,buyers:263,desc:"행복주택 지원 전 3분이면 끝나는 서류 체크리스트와 발급처·유효기간 정리표예요.",inc:["3분 체크리스트 1장","서류별 발급처·유효기간표","자주 빠지는 5종 해설"],revs:[{n:"청약 준비생",s:5,d:"2026.08.15",t:"체크리스트대로만 준비했는데 누락 없이 접수됐어요."},{n:"신혼부부",s:4,d:"2026.07.25",t:"유효기간표가 특히 도움됐어요. 등본 재발급을 안 해도 됐습니다."},{n:"직장인",s:5,d:"2026.07.06",t:"3분이라는 말이 과장이 아니에요. 제출 전 필수템입니다."}]},
+{t:"사업계획서 수익모델 한 장 요약법",m:"박○민",pr:14900,rt:"★★★★★ 4.9 · 156명 구매",rate:4.9,buyers:156,desc:"심사위원이 먼저 보는 수익모델 1장을 만드는 칸별 작성법과 before/after 교정본이에요.",inc:["한 장 요약 칸별 작성법","before/after 교정본 5종","숫자 근거 붙이는 법"],revs:[{n:"창업팀 대표",s:5,d:"2026.08.26",t:"수익모델 1장 바꾸고 서류 통과했어요. 숫자 근거 붙이는 법이 핵심이었습니다."},{n:"공모 지원자",s:5,d:"2026.08.08",t:"칸별 작성법대로 채우니 분량이 딱 맞았어요."},{n:"예비 대표",s:5,d:"2026.07.14",t:"교정본 비교가 좋아서 내 계획서 문제점이 바로 보였습니다."}]}];
+(function(){var g=document.getElementById("mkt-grid");if(!g)return;g.innerHTML="";JOKBO.forEach(function(j,ix){var d=document.createElement("div");d.className="mk";var a=document.createElement("a");a.href="#jokbo-"+ix;a.style.cssText="color:inherit;text-decoration:none;display:flex;flex-direction:column;gap:7px";var b=document.createElement("b");b.style.fontSize="14px";b.textContent=j.t;var m1=document.createElement("div");m1.className="stars";m1.innerHTML="<a class='star-link' href='#jokbo-"+ix+"-rv' style='color:#f5a623'>"+j.rt+"</a>";var m2=document.createElement("div");m2.className="pmeta";m2.textContent=j.m+" 멘토 · "+j.buyers+"명 구매";var pr=document.createElement("div");pr.className="amt2";pr.textContent=j.pr.toLocaleString()+"원";a.appendChild(b);a.appendChild(m1);a.appendChild(m2);a.appendChild(pr);var btn=document.createElement("button");btn.className="chip";btn.style.marginTop="4px";btn.textContent="구매하기";btn.onclick=function(e){e.stopPropagation();buyJokbo(ix)};d.appendChild(a);d.appendChild(btn);g.appendChild(d)})})();
 function roiCalc(){var plan=document.getElementById("roi-plan");var amt=document.getElementById("roi-amt");if(!plan||!amt)return;var fee=+plan.value;var v=+amt.value;document.getElementById("roi-val").textContent=(v/10000)+"만원";var x=Math.floor(v/fee);var back=fee>20000?" · 환급 성공 시 실부담 0~"+Math.floor(fee/2).toLocaleString()+"원":"";document.getElementById("roi-out").textContent=(fee===9900?"스타터 패스 9,900원":"VIP 패스 24,900원")+"으로 "+v.toLocaleString()+"원 노리기 → 약 "+x+"배"+back}
 try{document.getElementById("roi-plan").onchange=roiCalc;document.getElementById("roi-amt").oninput=roiCalc;roiCalc()}catch(e){}
 document.querySelectorAll("[data-buy]").forEach(function(b){b.onclick=function(){var k="catch_buy";var a=JSON.parse(localStorage.getItem(k)||"[]");var no="OD-"+Math.floor(1000+Math.random()*9000);a.push({no:no,item:b.dataset.buy,at:new Date().toLocaleString()});localStorage.setItem(k,JSON.stringify(a));toast("상담·구매 접수 "+no+" · "+b.dataset.buy)}});
@@ -777,7 +855,7 @@ function openPolicy(id){var p=null;POLICIES.forEach(function(x){if(x.id===id)p=x
  var _ov=document.getElementById("overlay");_ov.style.display="block";_ov.scrollTop=0;var _sh=_ov.querySelector(".sheet");if(_sh)_sh.scrollTop=0;try{document.body.style.overflow="hidden"}catch(e){}
 }
 document.addEventListener("click",function(e){var a=e.target&&e.target.closest?e.target.closest("a.doc-gov.prep"):null;if(!a)return;e.preventDefault();var d=a.getAttribute("data-doc")||"서류";var msg="";if(d.indexOf("통장")>=0||d.indexOf("입출금")>=0)msg="["+d+"] 은행 앱/영업점에서 발급. 잔액/계좌번호가 보이게 준비하세요.";else if(d.indexOf("임대차")>=0||d.indexOf("계약서")>=0)msg="["+d+"] 확정일자 받은 계약서 사본. 정부24 주택임대차신고에서 확정일자 신청 가능.";else if(d.indexOf("계획서")>=0||d.indexOf("자기소개")>=0||d.indexOf("신청서")>=0)msg="["+d+"] 공고문 첨부 양식 사용. #docs 자소서 초안에서 문장을 다듬으세요.";else if(d.indexOf("신분")>=0)msg="["+d+"] 주민등록증/운전면허증 앞면 사본 (주민번호 뒷자리 가림).";else if(d.indexOf("급여")>=0)msg="["+d+"] 회사 발급용. 불가 시 건강보험 자격득실/국민연금 증명으로 대체 가능한지 공고문 확인.";else if(d.indexOf("영수증")>=0||d.indexOf("확인서")>=0||d.indexOf("실행")>=0||d.indexOf("카드")>=0)msg="["+d+"] 해당 기관(카드사/은행/응시기관) 발급본. 캡처+원본 대조 가능하게 준비.";else msg="["+d+"] 공고문 첨부 양식/발급처를 먼저 확인하세요.";toast(msg);});
-function route(){var h=location.hash||"#home";if(h.indexOf("#policy-")===0){openPolicy(+h.replace("#policy-",""))}else{var _ov2=document.getElementById("overlay");if(_ov2)_ov2.style.display="none";try{document.body.style.overflow=""}catch(e){}}}
+function route(){var h=location.hash||"#home";if(h.indexOf("#policy-")===0){openPolicy(+h.replace("#policy-",""))}else if(h.indexOf("#jokbo-")===0){var _ji=h.replace("#jokbo-","").replace("-rv","");openJokbo(+_ji,true);var _t=document.getElementById("jokbo-rv");if(h.indexOf("-rv")>0&&_t){setTimeout(function(){_t.scrollIntoView({behavior:"smooth",block:"start"})},250)}}else if(h.indexOf("#mentor-")===0){var _mi=h.replace("#mentor-","").replace("-rv","");openMentor(+_mi,true);var _t2=document.getElementById("mentor-rv");if(h.indexOf("-rv")>0&&_t2){setTimeout(function(){_t2.scrollIntoView({behavior:"smooth",block:"start"})},250)}}else{var _ov2=document.getElementById("overlay");if(_ov2)_ov2.style.display="none";try{document.body.style.overflow=""}catch(e){}}}
 window.addEventListener("hashchange",route);
 document.getElementById("ov-x").onclick=function(){if((location.hash||"").indexOf("#policy-")===0){try{history.back();}catch(e){}}setTimeout(function(){var _ov3=document.getElementById("overlay");if(_ov3&&_ov3.style.display==="block"&&(location.hash||"").indexOf("#policy-")!==0){_ov3.style.display="none";try{document.body.style.overflow=""}catch(e){}}},80)};document.getElementById("ov-back").onclick=function(){document.getElementById("ov-x").onclick()};
 document.getElementById("overlay").addEventListener("click",function(e){if(e.target.id==="overlay")document.getElementById("ov-x").onclick()});
