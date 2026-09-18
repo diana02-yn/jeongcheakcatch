@@ -263,7 +263,8 @@ body.dark .scholar-info{background:#141d33;color:#c6d2e6}
 <div class="wiz-step on" id="ws1">
 <div class="wrow"><label>1) 생년월일 <span class="req">필수</span></label>
 <input type="text" id="wiz-birth" inputmode="numeric" pattern="[0-9]*" maxlength="8" placeholder="예: 20010315 (8자리)" style="width:100%;padding:12px;border:1.5px solid #d7dee8;border-radius:10px;font-size:15px" aria-label="생년월일 8자리">
-<p id="wiz-age-hint" style="font-size:12.5px;color:#647084;margin-top:6px">8자리 숫자만 입력하면 나이로 자동 계산돼요.</p>
+<p id="wiz-age-hint" style="font-size:12.5px;color:#647084;margin-top:6px">8자리 숫자로 입력해 주세요 (예: 20010315 · 6자리 010315도 돼요).</p>
+<p id="wiz-age-warn" style="display:none;font-size:12px;color:#c0392b;margin-top:4px">해당되는 나이가 아닙니다 (만 19~39세 청년 대상이에요. 그래도 결과는 보여드려요).</p>
 </div>
 <div class="wrow"><label>2) 성별 <span class="req">필수</span></label>
 <div class="wchips" id="wiz-gender">
@@ -347,7 +348,8 @@ body.dark .scholar-info{background:#141d33;color:#c6d2e6}
 <div class="wiz-step on" id="qs1">
 <div class="wrow"><label>1) 생년월일 <span class="req">필수</span></label>
 <input type="text" id="q-birth" inputmode="numeric" pattern="[0-9]*" maxlength="8" placeholder="예: 20010315 (8자리)" style="width:100%;padding:12px;border:1.5px solid #d7dee8;border-radius:10px;font-size:15px" aria-label="생년월일 8자리">
-<p style="font-size:12.5px;color:#647084;margin-top:6px">8자리 숫자만 입력하면 나이로 자동 계산돼요.</p>
+<p id="q-age-hint" style="font-size:12.5px;color:#647084;margin-top:6px">8자리 숫자로 입력해 주세요 (예: 20010315 · 6자리 010315도 돼요).</p>
+<p id="q-age-warn" style="display:none;font-size:12px;color:#c0392b;margin-top:4px">해당되는 나이가 아닙니다 (만 19~39세 청년 대상이에요. 그래도 결과는 보여드려요).</p>
 </div>
 <div class="wrow"><label>2) 성별 <span class="req">필수</span></label>
 <div class="wchips" id="q-gender">
@@ -421,7 +423,7 @@ body.dark .scholar-info{background:#141d33;color:#c6d2e6}
 <div class="ptag"><span>월세지원</span><span>전세임대</span><span>도약계좌</span></div>
 <p style="margin-top:10px"><a class="link" href="#match">내 조건으로 다시 계산하기 →</a></p><div class="kpi">
 <div><b>67.7%</b><span>청년 정책 비인지율 (대전 실태조사)</span></div>
-<div><b>9개</b><span>지금 지원 가능한 공고</span></div>
+<div><b>16개</b><span>지금 지원 가능한 공고</span></div>
 <div><b>6명</b><span>합격 멘토 대기 중</span></div>
 <div><b>최대 100%</b><span>신청 성공 시 페이백</span></div>
 </div></div>
@@ -461,7 +463,7 @@ body.dark .scholar-info{background:#141d33;color:#c6d2e6}
 <!-- POLICIES -->
 <section class="block" id="policies">
 <div class="sec-t">지원 가능한 정책 공고</div>
-<p class="sec-s">카테고리·검색으로 9개 대표 공고를 탐색하세요. 카드를 누르면 상세(자격·서류·일정)가 열리고, 뒤로가기로 목록에 돌아옵니다.</p>
+<p class="sec-s">카테고리·검색으로 16개 대표 공고를 탐색하세요. 카드를 누르면 상세(자격·서류·일정)가 열리고, 뒤로가기로 목록에 돌아옵니다.</p>
 <div class="chips" id="p-filter">
 <button class="chip on" data-c="전체">전체</button><button class="chip" data-c="주거">주거</button><button class="chip" data-c="취업">취업</button><button class="chip" data-c="자산">자산</button><button class="chip" data-c="교육">교육</button>
 </div>
@@ -613,7 +615,14 @@ var POLICIES=[
 {id:6,cat:"자산",title:"대전 청년 자산형성 통장 (3년 매칭저축)",org:"대전시",amt:"본인저축 1:1 매칭",due:"2026-09-30",dday:"D-13",cond:"대전 거주 근로청년 · 소득요건",tags:["자산","대전","매칭"],min:100,max:350,desc:"매달 저축하면 시가 같은 금액을 보태주는 지역형 매칭통장. 중도해지 조건 유의.",docs:["재직증명","급여명세","주민등록등본"],link:"https://www.daejeon.go.kr"},
 {id:7,cat:"교육",title:"청년 자격증 응시료 지원 (연 2회·최대 20만원)",org:"대전 청년센터",amt:"최대 20만원 실비",due:"2026-12-12",dday:"D-86",cond:"대전 청년 · 응시확인서 제출",tags:["교육","자격증","실비"],min:0,max:1000,desc:"어학·국가자격 응시료를 사후 환급. 영수증·성적표만 챙기면 통과율 높음.",docs:["응시확인서","결제영수증","통장사본"],link:"https://www.youthcenter.go.kr"},
 {id:8,cat:"주거",title:"전월세 보증금 대출이자 지원 (연 2%)",org:"대전시·은행",amt:"이자 연 최대 200만원",due:"2026-11-20",dday:"D-64",cond:"무주택 세대주 · 보증금 2억 이하",tags:["주거","대출","이자"],min:0,max:500,desc:"전월세 대출 이자 일부를 시가 보전. 계약 전 은행·시 조건을 교차 확인해야 함.",docs:["임대차계약서","대출실행확인서","주민등록등본"],link:"https://www.daejeon.go.kr"},
-{id:9,cat:"취업",title:"청년 인턴십·일경험 지원 (수당 + 멘토링)",org:"고용노동부",amt:"월 150만원 내외",due:"2026-10-17",dday:"D-30",cond:"미취업 청년 · 주 25시간 이상",tags:["취업","인턴","경험"],min:0,max:400,desc:"기업 현장경험과 직무교육을 함께 제공. 수료 후 정규직 전환 사례 다수.",docs:["참여신청서","졸업증명","자기소개서"],link:"https://www.work.go.kr"}];
+{id:10,cat:"교육",title:"청년 문화패스 (공연·전시 연 15만원)",org:"문체부",amt:"연 15만원 포인트",due:"2026-12-31",dday:"D-104",cond:"19~34세 청년 누구나",tags:["교육","문화","공연"],min:0,max:1000,desc:"공연·전시·영화에 쓸 수 있는 청년 문화이용권. 신청 후 포인트로 바로 결제.",docs:["신분증","문화패스 신청서"],link:"https://www.youthculturepass.or.kr"},
+{id:11,cat:"교육",title:"청년 국가기술자격 응시료 50% 지원",org:"고용노동부·큐넷",amt:"연 3회·50% 환급",due:"2026-11-30",dday:"D-73",cond:"34세 이하 구직·재직 청년",tags:["교육","자격증","환급"],min:0,max:1000,desc:"국가기술자격·어학시험 응시료를 사후 환급. 영수증만 있으면 신청 가능.",docs:["응시확인서","결제영수증","통장사본"],link:"https://www.q-net.or.kr"},
+{id:12,cat:"자산",title:"청년내일저축계좌 (월 10만원→3년 최대 1,440만원)",org:"복지로",amt:"정부 매칭 월 10~30만원",due:"2026-10-10",dday:"D-23",cond:"19~34세 근로·사업소득 청년",tags:["자산","저축","매칭"],min:0,max:300,desc:"매달 10만원 저축하면 정부가 얹어주는 저소득 청년 자산형성 통장.",docs:["재직·소득증빙","주민등록등본","통장사본"],link:"https://www.bokjiro.go.kr"},
+{id:13,cat:"자산",title:"햇살론유스 (취업준비·사회초년 생활자금)",org:"서민금융진흥원",amt:"최대 1,200만원·연 3.5%",due:"상시",dday:"상시모집",cond:"19~34세 미취업·사회초년",tags:["자산","대출","생활자금"],min:0,max:400,desc:"취업준비생·사회초년생 생활자금을 저금리로 빌려주는 서민금융 상품.",docs:["신분증","소득·재직서류","통장사본"],link:"https://www.kinfa.or.kr"},
+{id:14,cat:"취업",title:"청년도전지원사업 (구직단념 청년 수당)",org:"고용노동부",amt:"최대 300만원 + 프로그램",due:"2026-10-15",dday:"D-28",cond:"구직단념·자립준비 청년",tags:["취업","수당","도전"],min:0,max:500,desc:"구직을 쉬고 있던 청년의 일상회복·취업도전을 돕는 상담+수당 패키지.",docs:["참여신청서","주민등록등본","활동계획서"],link:"https://www.work.go.kr"},
+{id:15,cat:"주거",title:"행복주택 청년 우선공급 (대전지구 포함)",org:"LH",amt:"시세 60~80% 임대",due:"2026-11-25",dday:"D-68",cond:"19~39세 무주택 미혼·대학생·사회초년",tags:["주거","행복주택","LH"],min:0,max:500,desc:"대중교통·대학가 인근 행복주택을 청년에게 우선 공급. 청약 가점이 낮아도 노려볼 만함.",docs:["청약신청서","주민등록등본","소득확인서류"],link:"https://www.lh.or.kr"},
+{id:16,cat:"교육",title:"K-디지털 기초역량훈련 (내일배움카드 + 장려금)",org:"고용노동부·HRD",amt:"훈련비 전액 + 월 11.6만원",due:"상시",dday:"상시모집",cond:"구직·재직 청년",tags:["교육","디지털","훈련"],min:0,max:1000,desc:"코딩·데이터 기초를 무료로 배우고 훈련장려금까지 받는 내일배움카드 훈련.",docs:["내일배움카드","참여신청서","신분증"],link:"https://www.hrd.go.kr"},
+{id:9,cat:"취업",title:"청년 인턴십·일경험 지원 (수당 + 멘토링)" ,org:"고용노동부",amt:"월 150만원 내외",due:"2026-10-17",dday:"D-30",cond:"미취업 청년 · 주 25시간 이상",tags:["취업","인턴","경험"],min:0,max:400,desc:"기업 현장경험과 직무교육을 함께 제공. 수료 후 정규직 전환 사례 다수.",docs:["참여신청서","졸업증명","자기소개서"],link:"https://www.work.go.kr"}];
 var MENTORS=[
 {img:"https://picsum.photos/seed/mentor-a/600/300",name:"김○현 · LH 전세임대 합격",star:"★★★★★ 4.9",bio:"자취 2년차 · 서류 1회 통과. 가점 항목·우선순위 고르는 법 족보 보유.",tip:"임대 가능 주택 리스트업 순서가 핵심"},
 {img:"https://picsum.photos/seed/mentor-b/600/300",name:"박○민 · 창업지원금 수혜",star:"★★★★★ 4.8",bio:"사업계획서 3번 탈락 후 합격. 심사위원 질문 20선 정리.",tip:"수익모델 한 장 요약이 당락을 가름"},
@@ -712,7 +721,12 @@ window.wizGo=function(n){
  wiz.querySelector(".wiz-card").scrollTop=0;
 };
 function birthDigits(v){return (v||"").replace(/[^0-9]/g,"").slice(0,8);}
-function birthLabel(v){v=birthDigits(v);if(v.length<8)return "";var y=parseInt(v.slice(0,4),10),m=parseInt(v.slice(4,6),10),d2=parseInt(v.slice(6,8),10);if(!y||y<1950||y>2016||m<1||m>12||d2<1||d2>31)return "";var now=new Date().getFullYear();var a=now-y+1;var dec=Math.floor(a/10)*10;var d=(dec>=10?dec+"대":a+"세");return y+"년생·"+d;}
+function birthFull(v){v=birthDigits(v);if(v.length===6){var yy=parseInt(v.slice(0,2),10),m=parseInt(v.slice(2,4),10),d2=parseInt(v.slice(4,6),10);var y=(yy>=50?1900+yy:2000+yy);return {y:y,m:m,d:d2};}if(v.length===8){return {y:parseInt(v.slice(0,4),10),m:parseInt(v.slice(4,6),10),d:parseInt(v.slice(6,8),10)};}return null;}
+function birthLabel(v){var b=birthFull(v);if(!b)return "";if(!b.y||b.y<1900||b.y>2026||b.m<1||b.m>12||b.d<1||b.d>31)return "";var now=new Date().getFullYear();var a=now-b.y+1;if(a<1||a>100)return "";var dec=Math.floor(a/10)*10;var d=(dec>=10?dec+"대":a+"세");return b.y+"년생·"+d;}
+function birthKoreanAge(v){var b=birthFull(v);if(!b||!b.y||b.y<1900||b.y>2026)return null;return new Date().getFullYear()-b.y+1;}
+function isYouthBirth(v){var a=birthKoreanAge(v);return (a!==null&&a>=19&&a<=39);}
+function interestCat(v){if(v==="주거")return "주거";if(v==="일자리")return "취업";if(v==="교육/문화"||v==="교육")return "교육";if(v==="금융")return "자산";return "";}
+function optComment(sv,bn){var t="";if(sv==="50만원 이상")t+=" · 💰 목돈형(도약·저축계좌) 우선";else if(sv==="30~50만원"||sv==="10~30만원")t+=" · 💰 저축습관형(적금·매칭통장) 우선";if(bn==="없음")t+=" · 🌱 첫 수혜자용(서류 쉬운 순) 우선";else if(bn==="2회 이상")t+=" · 🚀 숙련자용(창업·자산 심화) 포함";return t;}
 var age="",gender="",region="",job="",scholar="",incVal=null,incLabel="";
 function single(sel,cb){
  document.querySelectorAll(sel+" .wchip").forEach(function(c){
@@ -722,8 +736,9 @@ function single(sel,cb){
   };
  });
 }
-document.getElementById("wiz-birth").addEventListener("change",function(e){age=birthLabel(e.target.value);var h=document.getElementById("wiz-age-hint");if(h&&age){h.textContent="✔ "+age+" 로 계산됐어요.";}check();});
-document.getElementById("wiz-birth").addEventListener("input",function(e){e.target.value=birthDigits(e.target.value);age=birthLabel(e.target.value);var h=document.getElementById("wiz-age-hint");if(h){h.textContent=age?("✔ "+age+" 로 계산됐어요."):"8자리로 입력해 주세요 (예: 20010315)";}check();});
+function wizBirthUI(){var el=document.getElementById("wiz-birth");var h=document.getElementById("wiz-age-hint");var w=document.getElementById("wiz-age-warn");age=birthLabel(el.value);var digits=birthDigits(el.value);if(h){h.textContent=age?("✔ "+age+" 로 계산됐어요."):(digits.length===6?"6자리로 인식했어요. 8자리(YYYYMMDD)로 치면 더 정확해요.":"8자리 숫자로 입력해 주세요 (예: 20010315 · 6자리 010315도 돼요)");}if(w){var showWarn=(digits.length>=6&&birthKoreanAge(el.value)!==null&&!isYouthBirth(el.value));w.style.display=showWarn?"block":"none";}}
+document.getElementById("wiz-birth").addEventListener("change",function(e){wizBirthUI();check();});
+document.getElementById("wiz-birth").addEventListener("input",function(e){e.target.value=birthDigits(e.target.value);wizBirthUI();check();});
 single("#wiz-gender",function(c){gender=c.dataset.g;check()});
 single("#wiz-region",function(c){region=c.dataset.r;check()});
 single("#wiz-job",function(c){
@@ -756,21 +771,20 @@ document.getElementById("wiz-done").onclick=hideWiz;
 document.getElementById("wiz-go-jokbo").onclick=function(){hideWiz();location.hash="#market"};
 document.getElementById("wiz-go-docs").onclick=function(){hideWiz();location.hash="#docs"};
 function regionPool(){
- if(region==="그외"){return POLICIES.filter(function(p){return p.id===2||p.id===3||p.id===4||p.id===5||p.id===9})}
+ if(region==="그외"){return POLICIES.filter(function(p){return (p.org||"").indexOf("대전")<0})}
  return POLICIES.slice();
 }
 function wizRecommend(){
+ var optI=((document.getElementById("wiz-opt-interest")||{}).value||"");var optS=((document.getElementById("wiz-opt-save")||{}).value||"");var optB=((document.getElementById("wiz-opt-benefit")||{}).value||"");var icat=interestCat(optI);
  var pool=regionPool().filter(function(p){return incVal>=p.min-50&&incVal<=p.max+200});
  if(!pool.length)pool=regionPool();
- if(job==="구직자")pool.sort(function(a,b){return ((b.cat==="취업")?1:0)-((a.cat==="취업")?1:0)});
- if(job==="재직자")pool.sort(function(a,b){return ((b.cat==="자산"||b.cat==="주거")?1:0)-((a.cat==="자산"||a.cat==="주거")?1:0)});
- if(job==="창업자")pool.sort(function(a,b){return (b.id===5?1:0)-(a.id===5?1:0)});
- if(job==="대학생")pool.sort(function(a,b){return ((b.cat==="주거"||b.cat==="교육")?1:0)-((a.cat==="주거"||a.cat==="교육")?1:0)});
+function jsc(p){if(job==="구직자")return (p.cat==="취업"?5:0);if(job==="재직자")return ((p.cat==="자산"||p.cat==="주거")?5:0);if(job==="창업자")return (p.id===5?5:0);if(job==="대학생")return ((p.cat==="주거"||p.cat==="교육")?5:0);return 0;}
+pool.sort(function(a,b){var sa=((icat&&a.cat===icat)?10:0)+jsc(a);var sb=((icat&&b.cat===icat)?10:0)+jsc(b);return sb-sa;});
  var top=pool.slice(0,3);
  if(!top.length)top=regionPool().slice(0,3);
  var regionTxt=(region==="대전"?"📍 대전 거주":"🌐 그 외 지역(전국 혜택)");
  var scholarTxt=(job==="대학생"&&scholar)?(" · 🎓 국가장학금 "+scholar):"";
- document.getElementById("wiz-sum").innerHTML=esc(age)+" · "+regionTxt+" · "+esc(gender)+"/"+esc(job)+" · "+esc(incLabel)+" 기준으로 <b>"+top.length+"개</b>를 골랐어요"+scholarTxt+". 카드 누르면 상세·서류가 열립니다.";
+ var youthTxt=isYouthBirth(document.getElementById("wiz-birth").value)?"":" · <span style='font-size:12px;color:#c0392b'>해당되는 나이가 아닙니다(19~39세 외도 참고용으로 표시)</span>";var intTxt=optI?(" · 🎯 관심분야("+esc(optI)+") 반영"):"";document.getElementById("wiz-sum").innerHTML=esc(age)+" · "+regionTxt+" · "+esc(gender)+"/"+esc(job)+" · "+esc(incLabel)+intTxt+optComment(optS,optB)+" 기준으로 <b>"+top.length+"개</b>를 골랐어요"+scholarTxt+youthTxt+". 카드 누르면 상세·서류가 열립니다.";
  var box=document.getElementById("wiz-res");box.innerHTML="";
  top.forEach(function(p){
   var d=document.createElement("div");d.className="wres";
@@ -879,8 +893,9 @@ function singleQ(sel,cb){
   };
  });
 }
-document.getElementById("q-birth").addEventListener("change",function(e){qa=birthLabel(e.target.value);checkQ();});
-document.getElementById("q-birth").addEventListener("input",function(e){e.target.value=birthDigits(e.target.value);qa=birthLabel(e.target.value);checkQ();});
+function qBirthUI(){var el=document.getElementById("q-birth");var h=document.getElementById("q-age-hint");var w=document.getElementById("q-age-warn");qa=birthLabel(el.value);var digits=birthDigits(el.value);if(h){h.textContent=qa?("✔ "+qa+" 로 계산됐어요."):(digits.length===6?"6자리로 인식했어요. 8자리(YYYYMMDD)로 치면 더 정확해요.":"8자리 숫자로 입력해 주세요 (예: 20010315 · 6자리 010315도 돼요)");}if(w){var showWarn=(digits.length>=6&&birthKoreanAge(el.value)!==null&&!isYouthBirth(el.value));w.style.display=showWarn?"block":"none";}}
+document.getElementById("q-birth").addEventListener("change",function(e){qBirthUI();checkQ();});
+document.getElementById("q-birth").addEventListener("input",function(e){e.target.value=birthDigits(e.target.value);qBirthUI();checkQ();});
 singleQ("#q-gender",function(c){qg=c.dataset.g;checkQ()});
 singleQ("#q-region",function(c){qr=c.dataset.r;checkQ()});
 singleQ("#q-job",function(c){
@@ -909,18 +924,17 @@ function checkQ(){
 }
 function esc2(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;")}
 document.getElementById("q-next").onclick=function(){
+ var qI=((document.getElementById("q-opt-interest")||{}).value||"");var qS=((document.getElementById("q-opt-save")||{}).value||"");var qB=((document.getElementById("q-opt-benefit")||{}).value||"");var qicat=interestCat(qI);
  var pool=(typeof POLICIES==="undefined")?[]:POLICIES.slice();
- if(qr==="그외"){pool=pool.filter(function(p){return p.id===2||p.id===3||p.id===4||p.id===5||p.id===9})}
+ if(qr==="그외"){pool=pool.filter(function(p){return (p.org||"").indexOf("대전")<0})}
  pool=pool.filter(function(p){return qv>=p.min-50&&qv<=p.max+200});
- if(!pool.length){pool=(qr==="그외")?POLICIES.filter(function(p){return p.id===2||p.id===3||p.id===4||p.id===5||p.id===9}):POLICIES.slice();}
- if(qj==="구직자")pool.sort(function(a,b){return ((b.cat==="취업")?1:0)-((a.cat==="취업")?1:0)});
- if(qj==="재직자")pool.sort(function(a,b){return ((b.cat==="자산"||b.cat==="주거")?1:0)-((a.cat==="자산"||a.cat==="주거")?1:0)});
- if(qj==="창업자")pool.sort(function(a,b){return (b.id===5?1:0)-(a.id===5?1:0)});
- if(qj==="대학생")pool.sort(function(a,b){return ((b.cat==="주거"||b.cat==="교육")?1:0)-((a.cat==="주거"||a.cat==="교육")?1:0)});
+ if(!pool.length){pool=(qr==="그외")?POLICIES.filter(function(p){return (p.org||"").indexOf("대전")<0}):POLICIES.slice();}
+function qjsc(p){if(qj==="구직자")return (p.cat==="취업"?5:0);if(qj==="재직자")return ((p.cat==="자산"||p.cat==="주거")?5:0);if(qj==="창업자")return (p.id===5?5:0);if(qj==="대학생")return ((p.cat==="주거"||p.cat==="교육")?5:0);return 0;}
+pool.sort(function(a,b){var sa=((qicat&&a.cat===qicat)?10:0)+qjsc(a);var sb=((qicat&&b.cat===qicat)?10:0)+qjsc(b);return sb-sa;});
  var top=pool.slice(0,3);
  var rtxt=(qr==="대전"?"📍 대전 거주":"🌐 그 외 지역(전국 혜택)");
  var stxt=(qj==="대학생"&&qs)?(" · 🎓 국가장학금 "+qs):"";
- document.getElementById("q-sum").innerHTML=rtxt+" · "+esc2(qg)+"/"+esc2(qj)+" · "+esc2(ql)+" 기준으로 <b>"+top.length+"개</b>를 골랐어요"+stxt+". (저장 안 함)";
+ var qyouth=isYouthBirth(document.getElementById("q-birth").value)?"":" · <span style='font-size:12px;color:#c0392b'>해당되는 나이가 아닙니다(19~39세 외도 참고용으로 표시)</span>";var qint=qI?(" · 🎯 관심분야("+esc2(qI)+") 반영"):"";document.getElementById("q-sum").innerHTML=esc2(qa)+" · "+rtxt+" · "+esc2(qg)+"/"+esc2(qj)+" · "+esc2(ql)+qint+optComment(qS,qB)+" 기준으로 <b>"+top.length+"개</b>를 골랐어요"+stxt+qyouth+". (저장 안 함)";
  var box=document.getElementById("q-res");box.innerHTML="";
  top.forEach(function(p){
   var d=document.createElement("div");d.className="wres";
