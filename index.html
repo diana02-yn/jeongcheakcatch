@@ -204,6 +204,37 @@ body.simple .kpi div{padding:10px}
 body.dark .scholar-info{background:#141d33;color:#c6d2e6}
 
 </style>
+<style>
+/* ===== 모바일 기준 최적화 (2026-09-18) ===== */
+html{-webkit-text-size-adjust:100%;}
+body{font-size:15px;line-height:1.6;}
+.wrap{padding:0 16px;}
+.btn,.btn-pri,.btn-ghost{min-height:48px;display:inline-flex;align-items:center;justify-content:center;font-size:15px;padding:12px 16px;}
+/* 상세 시트: 모바일 바텀시트 */
+#overlay{padding:0;-webkit-overflow-scrolling:touch;}
+#overlay .sheet{width:100%;max-width:640px;margin:6vh auto 0;border-radius:18px 18px 0 0;max-height:92dvh;overflow-y:auto;padding:18px 16px calc(20px + env(safe-area-inset-bottom));box-shadow:0 -8px 40px rgba(0,0,0,.25);animation:sheetUp .25s ease;}
+@keyframes sheetUp{from{transform:translateY(30px);opacity:.5}to{transform:none;opacity:1}}
+/* 필수서류: 모바일에서 줄바꿈 + 큰 터치버튼 */
+#overlay .sheet ul li{padding:10px 0;border-bottom:1px solid #eef1f6;font-size:15px;list-style:none;margin-left:0!important;}
+#overlay .sheet ul{margin-left:0!important;padding-left:0!important;}
+.doc-gov{display:inline-flex;align-items:center;min-height:44px;margin:6px 0 0 8px;padding:8px 12px;background:#eef4ff;color:#1a56db!important;border-radius:10px;font-size:14px;font-weight:700;text-decoration:none;white-space:nowrap;}
+.doc-gov:active{background:#d9e6ff;}
+/* 팝업 카드 모바일 */
+.wiz-card,.intro-card{width:calc(100% - 32px)!important;max-width:480px!important;max-height:90dvh;overflow-y:auto;-webkit-overflow-scrolling:touch;}
+.wiz-card input[type=text],.wiz-card input[type=tel],.wiz-card select{font-size:16px!important;min-height:48px;}
+.chip{min-height:44px;display:inline-flex;align-items:center;padding:10px 14px;font-size:14px;}
+/* 히어로 모바일 1열 */
+@media(max-width:900px){
+.hero-grid{grid-template-columns:1fr!important;}
+.hero-card{order:2;margin-top:14px;}
+h1{font-size:24px!important;line-height:1.35;}
+}
+/* 표·카드 가로 넘침 방지 */
+table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+img{max-width:100%;height:auto;}
+/* 하단 플로팅 버튼 간격 */
+#ai-fab{bottom:calc(16px + env(safe-area-inset-bottom))!important;}
+</style>
 </head>
 <body>
 <header><div class="hwrap">
@@ -690,9 +721,10 @@ document.querySelectorAll("[data-buy]").forEach(function(b){b.onclick=function()
 document.querySelectorAll("[data-plan]").forEach(function(b){b.onclick=function(){localStorage.setItem("catch_plan",b.dataset.plan);toast(b.dataset.plan+" 선택 저장 · 결제는 정식 출시 후 연동됩니다")}});
 function loadBox(){try{var q=JSON.parse(localStorage.getItem("catch_q")||"[]");var el=document.getElementById("mybox");if(!q.length){el.textContent="아직 남긴 문의가 없습니다.";return}el.innerHTML=q.slice(-3).reverse().map(function(x){return "· "+esc(x.no)+" · "+esc(x.type)+" · "+esc(x.at)}).join("<br>")}catch(e){}}
 document.getElementById("qform").onsubmit=function(e){e.preventDefault();var n=document.getElementById("q-name").value.trim(),p=document.getElementById("q-phone").value.trim(),t=document.getElementById("q-type").value,b=document.getElementById("q-body").value.trim();if(n.length<1||p.length<9){toast("이름과 연락처를 입력해주세요");return}var no="CT-"+Math.floor(1000+Math.random()*9000);var a=JSON.parse(localStorage.getItem("catch_q")||"[]");a.push({no:no,name:n,phone:p,type:t,body:b,at:new Date().toLocaleString()});localStorage.setItem("catch_q",JSON.stringify(a));loadBox();toast("접수 완료 · 접수번호 "+no);e.target.reset()};
+function govLinkFor(d){var s=String(d||"");if(s.indexOf("주민등록")>=0||s.indexOf("등본")>=0||s.indexOf("초본")>=0){return "https://www.gov.kr/mw/AA020InfoCappView.do?CappBizCD=13100000015&HighCtgCD=A01010001&tp_seq=01&Mcode=10200";}return "https://www.gov.kr/search?query="+encodeURIComponent(s);}
 function openPolicy(id){var p=null;POLICIES.forEach(function(x){if(x.id===id)p=x});if(!p)return;
  document.getElementById("ov-t").textContent=p.title;
- document.getElementById("ov-b").innerHTML="<div class='ptag' style='margin-bottom:8px'><span>"+p.cat+"</span><span>"+p.org+"</span><span>"+p.dday+" · "+p.due+"</span></div><p>"+esc(p.desc)+"</p><p class='pmeta' style='margin:8px 0'>지원자격: "+esc(p.cond)+"<br>혜택: "+esc(p.amt)+"</p><b>필수 서류</b><ul style='margin:6px 0 10px 18px'>"+p.docs.map(function(d){return "<li>"+esc(d)+"<a class='doc-gov' href='https://www.gov.kr/portal/search?query="+encodeURIComponent(d)+"' target='_blank' rel='noopener'>정부24 출력 →</a></li>"}).join("")+"</ul><div style='display:flex;gap:8px;flex-wrap:wrap'><a class='btn btn-pri' href='"+p.link+"' target='_blank' rel='noopener'>공식 공고·신청 바로가기</a><a class='btn btn-ghost' href='tel:042-123-4567'>전화로 물어보기</a><a class='btn btn-ghost' href='#docs'>자소서 초안 만들기</a></div><p class='privacy'>신청 전 공식 공고문 원문을 반드시 확인하세요.</p>";
+ document.getElementById("ov-b").innerHTML="<div class='ptag' style='margin-bottom:8px'><span>"+p.cat+"</span><span>"+p.org+"</span><span>"+p.dday+" · "+p.due+"</span></div><p>"+esc(p.desc)+"</p><p class='pmeta' style='margin:8px 0'>지원자격: "+esc(p.cond)+"<br>혜택: "+esc(p.amt)+"</p><b>필수 서류</b><ul style='margin:6px 0 10px 18px'>"+p.docs.map(function(d){return "<li>"+esc(d)+"<a class='doc-gov' href='"+govLinkFor(d)+"' target='_blank' rel='noopener'>정부24 출력 →</a></li>"}).join("")+"</ul><div style='display:flex;gap:8px;flex-wrap:wrap'><a class='btn btn-pri' href='"+p.link+"' target='_blank' rel='noopener'>공식 공고·신청 바로가기</a><a class='btn btn-ghost' href='tel:042-123-4567'>전화로 물어보기</a><a class='btn btn-ghost' href='#docs'>자소서 초안 만들기</a></div><p class='privacy'>신청 전 공식 공고문 원문을 반드시 확인하세요.</p>";
  var _ov=document.getElementById("overlay");_ov.style.display="block";_ov.scrollTop=0;var _sh=_ov.querySelector(".sheet");if(_sh)_sh.scrollTop=0;try{document.body.style.overflow="hidden"}catch(e){}
 }
 function route(){var h=location.hash||"#home";if(h.indexOf("#policy-")===0){openPolicy(+h.replace("#policy-",""))}else{var _ov2=document.getElementById("overlay");if(_ov2)_ov2.style.display="none";try{document.body.style.overflow=""}catch(e){}}}
