@@ -214,11 +214,13 @@ body{font-size:15px;line-height:1.6;}
 #overlay{padding:0;-webkit-overflow-scrolling:touch;}
 #overlay .sheet{width:100%;max-width:640px;margin:6vh auto 0;border-radius:18px 18px 0 0;max-height:92dvh;overflow-y:auto;padding:18px 16px calc(20px + env(safe-area-inset-bottom));box-shadow:0 -8px 40px rgba(0,0,0,.25);animation:sheetUp .25s ease;}
 @keyframes sheetUp{from{transform:translateY(30px);opacity:.5}to{transform:none;opacity:1}}
+/* 필수서류: 모바일 1서류 1줄 카드 + 버튼 풀터치 */
+#overlay .sheet ul li{display:flex;align-items:center;justify-content:space-between;gap:10px;}#overlay .sheet ul li span{flex:1;min-width:0;}
 /* 필수서류: 모바일에서 줄바꿈 + 큰 터치버튼 */
 #overlay .sheet ul li{padding:10px 0;border-bottom:1px solid #eef1f6;font-size:15px;list-style:none;margin-left:0!important;}
 #overlay .sheet ul{margin-left:0!important;padding-left:0!important;}
 .doc-gov{display:inline-flex;align-items:center;min-height:44px;margin:6px 0 0 8px;padding:8px 12px;background:#eef4ff;color:#1a56db!important;border-radius:10px;font-size:14px;font-weight:700;text-decoration:none;white-space:nowrap;}
-.doc-gov:active{background:#d9e6ff;}
+.doc-gov:active{background:#d9e6ff;}.doc-gov.prep{background:#f1f5ff;color:#33415c!important;border:1px solid #dbe4fb;}
 /* 팝업 카드 모바일 */
 .wiz-card,.intro-card{width:calc(100% - 32px)!important;max-width:480px!important;max-height:90dvh;overflow-y:auto;-webkit-overflow-scrolling:touch;}
 .wiz-card input[type=text],.wiz-card input[type=tel],.wiz-card select{font-size:16px!important;min-height:48px;}
@@ -721,12 +723,28 @@ document.querySelectorAll("[data-buy]").forEach(function(b){b.onclick=function()
 document.querySelectorAll("[data-plan]").forEach(function(b){b.onclick=function(){localStorage.setItem("catch_plan",b.dataset.plan);toast(b.dataset.plan+" 선택 저장 · 결제는 정식 출시 후 연동됩니다")}});
 function loadBox(){try{var q=JSON.parse(localStorage.getItem("catch_q")||"[]");var el=document.getElementById("mybox");if(!q.length){el.textContent="아직 남긴 문의가 없습니다.";return}el.innerHTML=q.slice(-3).reverse().map(function(x){return "· "+esc(x.no)+" · "+esc(x.type)+" · "+esc(x.at)}).join("<br>")}catch(e){}}
 document.getElementById("qform").onsubmit=function(e){e.preventDefault();var n=document.getElementById("q-name").value.trim(),p=document.getElementById("q-phone").value.trim(),t=document.getElementById("q-type").value,b=document.getElementById("q-body").value.trim();if(n.length<1||p.length<9){toast("이름과 연락처를 입력해주세요");return}var no="CT-"+Math.floor(1000+Math.random()*9000);var a=JSON.parse(localStorage.getItem("catch_q")||"[]");a.push({no:no,name:n,phone:p,type:t,body:b,at:new Date().toLocaleString()});localStorage.setItem("catch_q",JSON.stringify(a));loadBox();toast("접수 완료 · 접수번호 "+no);e.target.reset()};
-function govLinkFor(d){var s=String(d||"");if(s.indexOf("주민등록")>=0||s.indexOf("등본")>=0||s.indexOf("초본")>=0){return "https://www.gov.kr/mw/AA020InfoCappView.do?CappBizCD=13100000015&HighCtgCD=A01010001&tp_seq=01&Mcode=10200";}return "https://www.gov.kr/search?query="+encodeURIComponent(s);}
+/* 서류별 정부24 바로발급 딥링크 (검증된 CappBizCD만 사용, 없는 페이지는 만들지 않음) */
+function govDoc(d){var s=String(d||"");
+ function mw(cd){return "https://www.gov.kr/mw/AA020InfoCappView.do?CappBizCD="+cd;}
+ if(s.indexOf("주민등록")>=0||s.indexOf("등본")>=0||s.indexOf("초본")>=0)return{url:"https://www.gov.kr/mw/AA020InfoCappView.do?CappBizCD=13100000015&HighCtgCD=A01010001&tp_seq=01&Mcode=10200",label:"정부24 바로발급",ext:1};
+ if(s.indexOf("소득금액증명")>=0||s.indexOf("소득확인")>=0||s.indexOf("소득")==0||s.indexOf("소득")>=0)return{url:mw("12100000021")+"&tp_seq=01",label:"정부24 바로발급",ext:1};
+ if(s.indexOf("재직")>=0||s.indexOf("경력")>=0||s.indexOf("퇴직")>=0)return{url:mw("00000000008"),label:"정부24 바로발급",ext:1};
+ if(s.indexOf("사업자등록")>=0)return{url:mw("12100000016"),label:"정부24 바로발급",ext:1};
+ if(s.indexOf("가족관계")>=0)return{url:mw("97400000004"),label:"정부24 바로발급",ext:1};
+ if(s.indexOf("건강보험")>=0||s.indexOf("자격득실")>=0)return{url:mw("PG4CADM0107"),label:"정부24 바로발급",ext:1};
+ if(s.indexOf("국민연금")>=0||s.indexOf("가입증명")>=0)return{url:mw("14600000312"),label:"정부24 바로발급",ext:1};
+ if(s.indexOf("졸업")>=0&&s.indexOf("재학")>=0)return{url:mw("SG4CADM3001")+"&HighCtgCD=A04002&tp_seq=01",label:"정부24 바로발급",ext:1};
+ if(s.indexOf("졸업")>=0)return{url:mw("13404000009"),label:"정부24 바로발급",ext:1};
+ if(s.indexOf("재학")>=0)return{url:mw("13404000010"),label:"정부24 바로발급",ext:1};
+ if(s.indexOf("임대차")>=0||s.indexOf("확정일자")>=0)return{url:mw("16130000132"),label:"정부24 신고/발급",ext:1};
+ return{url:"#docs",label:"준비방법",ext:0};}
+function govLinkFor(d){return govDoc(d).url;}
 function openPolicy(id){var p=null;POLICIES.forEach(function(x){if(x.id===id)p=x});if(!p)return;
  document.getElementById("ov-t").textContent=p.title;
- document.getElementById("ov-b").innerHTML="<div class='ptag' style='margin-bottom:8px'><span>"+p.cat+"</span><span>"+p.org+"</span><span>"+p.dday+" · "+p.due+"</span></div><p>"+esc(p.desc)+"</p><p class='pmeta' style='margin:8px 0'>지원자격: "+esc(p.cond)+"<br>혜택: "+esc(p.amt)+"</p><b>필수 서류</b><ul style='margin:6px 0 10px 18px'>"+p.docs.map(function(d){return "<li>"+esc(d)+"<a class='doc-gov' href='"+govLinkFor(d)+"' target='_blank' rel='noopener'>정부24 출력 →</a></li>"}).join("")+"</ul><div style='display:flex;gap:8px;flex-wrap:wrap'><a class='btn btn-pri' href='"+p.link+"' target='_blank' rel='noopener'>공식 공고·신청 바로가기</a><a class='btn btn-ghost' href='tel:042-123-4567'>전화로 물어보기</a><a class='btn btn-ghost' href='#docs'>자소서 초안 만들기</a></div><p class='privacy'>신청 전 공식 공고문 원문을 반드시 확인하세요.</p>";
+ document.getElementById("ov-b").innerHTML="<div class='ptag' style='margin-bottom:8px'><span>"+p.cat+"</span><span>"+p.org+"</span><span>"+p.dday+" · "+p.due+"</span></div><p>"+esc(p.desc)+"</p><p class='pmeta' style='margin:8px 0'>지원자격: "+esc(p.cond)+"<br>혜택: "+esc(p.amt)+"</p><b>필수 서류</b><p class='pmeta' style='margin:4px 0 2px'>정부24 발급 가능 서류는 <b>바로발급</b>으로, 통장사본/계약서/계획서 등은 <b>준비방법</b>으로 표시됩니다.</p><ul style='margin:6px 0 10px 18px'>"+p.docs.map(function(d){var g=govDoc(d);var tgt=g.ext?" target='_blank' rel='noopener'":"";var cls=g.ext?"doc-gov":"doc-gov prep";return "<li><span>"+esc(d)+"</span><a class='"+cls+"' data-prep='"+(g.ext?0:1)+"' data-doc='"+esc(d)+"' href='"+g.url+"'"+tgt+">"+g.label+"</a></li>"}).join("")+"</ul><div style='display:flex;gap:8px;flex-wrap:wrap'><a class='btn btn-pri' href='"+p.link+"' target='_blank' rel='noopener'>공식 공고·신청 바로가기</a><a class='btn btn-ghost' href='tel:042-123-4567'>전화로 물어보기</a><a class='btn btn-ghost' href='#docs'>자소서 초안 만들기</a></div><p class='privacy'>신청 전 공식 공고문 원문을 반드시 확인하세요.</p>";
  var _ov=document.getElementById("overlay");_ov.style.display="block";_ov.scrollTop=0;var _sh=_ov.querySelector(".sheet");if(_sh)_sh.scrollTop=0;try{document.body.style.overflow="hidden"}catch(e){}
 }
+document.addEventListener("click",function(e){var a=e.target&&e.target.closest?e.target.closest("a.doc-gov.prep"):null;if(!a)return;e.preventDefault();var d=a.getAttribute("data-doc")||"서류";var msg="";if(d.indexOf("통장")>=0||d.indexOf("입출금")>=0)msg="["+d+"] 은행 앱/영업점에서 발급. 잔액/계좌번호가 보이게 준비하세요.";else if(d.indexOf("임대차")>=0||d.indexOf("계약서")>=0)msg="["+d+"] 확정일자 받은 계약서 사본. 정부24 주택임대차신고에서 확정일자 신청 가능.";else if(d.indexOf("계획서")>=0||d.indexOf("자기소개")>=0||d.indexOf("신청서")>=0)msg="["+d+"] 공고문 첨부 양식 사용. #docs 자소서 초안에서 문장을 다듬으세요.";else if(d.indexOf("신분")>=0)msg="["+d+"] 주민등록증/운전면허증 앞면 사본 (주민번호 뒷자리 가림).";else if(d.indexOf("급여")>=0)msg="["+d+"] 회사 발급용. 불가 시 건강보험 자격득실/국민연금 증명으로 대체 가능한지 공고문 확인.";else if(d.indexOf("영수증")>=0||d.indexOf("확인서")>=0||d.indexOf("실행")>=0||d.indexOf("카드")>=0)msg="["+d+"] 해당 기관(카드사/은행/응시기관) 발급본. 캡처+원본 대조 가능하게 준비.";else msg="["+d+"] 공고문 첨부 양식/발급처를 먼저 확인하세요.";toast(msg);});
 function route(){var h=location.hash||"#home";if(h.indexOf("#policy-")===0){openPolicy(+h.replace("#policy-",""))}else{var _ov2=document.getElementById("overlay");if(_ov2)_ov2.style.display="none";try{document.body.style.overflow=""}catch(e){}}}
 window.addEventListener("hashchange",route);
 document.getElementById("ov-x").onclick=function(){if((location.hash||"").indexOf("#policy-")===0){try{history.back();}catch(e){}}setTimeout(function(){var _ov3=document.getElementById("overlay");if(_ov3&&_ov3.style.display==="block"&&(location.hash||"").indexOf("#policy-")!==0){_ov3.style.display="none";try{document.body.style.overflow=""}catch(e){}}},80)};document.getElementById("ov-back").onclick=function(){document.getElementById("ov-x").onclick()};
